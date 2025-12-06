@@ -1,9 +1,9 @@
 {
-  "cpu": "10.2%",
-  "memory": "59.3%",
+  "cpu": "8.5%",
+  "memory": "59.5%",
   "disk": "25%",
   "temperature": "47.2°C",
-  "uptime": "19 hours, 29 minutes",
+  "uptime": "19 hours, 34 minutes",
   "ip": "192.168.0.16",
-  "lastUpdate": "2025-12-06T21:21:02.030Z"
+  "lastUpdate": "2025-12-06T21:26:02.062Z"
 }
