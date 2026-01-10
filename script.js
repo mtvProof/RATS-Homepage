@@ -6678,69 +6678,69 @@ function calculateToolCupboardAllocate() {
 }
 
 // ==================== CRAFTER BIND SECTION ====================
-// Item database with item IDs from corrosionhour.com
+// Item database with item IDs and crafting costs from corrosionhour.com
 const crafterItems = {
   weapon: [
-    { name: 'AK', id: '1545779598' },
-    { name: 'Bolt Action Rifle', id: '1588298435' },
-    { name: 'Custom SMG', id: '1796682209' },
-    { name: 'Hmlmg', id: '-1214542497' },
-    { name: 'Python', id: '1373971859' },
-    { name: 'Pump Shotgun', id: '795371088' },
-    { name: 'Semi-Automatic Pistol', id: '818877484' },
-    { name: 'Semi-Automatic Rifle', id: '-904863145' },
-    { name: 'Thompson SMG', id: '-1758372725' },
-    { name: 'MP5', id: '1318558775' }
+    { name: 'AK', id: '1545779598', costs: { 'riflebody': 1, 'metalspring': 1, 'metalpipe': 2 } },
+    { name: 'Bolt Action Rifle', id: '1588298435', costs: { 'riflebody': 1, 'metalspring': 2, 'metalblade': 1 } },
+    { name: 'Custom SMG', id: '1796682209', costs: { 'smgbody': 1, 'metalspring': 2 } },
+    { name: 'Hmlmg', id: '-1214542497', costs: { 'riflebody': 1, 'metalspring': 3, 'metalpipe': 2 } },
+    { name: 'Python', id: '1373971859', costs: { 'metalspring': 1, 'metalblade': 2 } },
+    { name: 'Pump Shotgun', id: '795371088', costs: { 'riflebody': 1, 'metalblade': 2, 'metalspring': 1 } },
+    { name: 'Semi-Automatic Pistol', id: '818877484', costs: { 'metalspring': 1, 'metalblade': 1 } },
+    { name: 'Semi-Automatic Rifle', id: '-904863145', costs: { 'riflebody': 1, 'metalspring': 2, 'metalblade': 1 } },
+    { name: 'Thompson SMG', id: '-1758372725', costs: { 'smgbody': 1, 'metalspring': 2, 'metalpipe': 1 } },
+    { name: 'MP5', id: '1318558775', costs: { 'smgbody': 1, 'metalspring': 1, 'metalblade': 1 } }
   ],
   attachment: [
-    { name: 'Holosight', id: '442289265' },
-    { name: 'Laser', id: '-132516482' },
-    { name: 'Flashlight', id: '-196667575' },
-    { name: 'Extended Mag', id: '-2005491391' },
-    { name: 'Simple Handmade Sight', id: '-855748505' },
-    { name: '8x scope', id: '174866732' }
+    { name: 'Holosight', id: '442289265', costs: { 'techparts': 2, 'metalspring': 1 } },
+    { name: 'Laser', id: '-132516482', costs: { 'techparts': 1, 'metalspring': 1 } },
+    { name: 'Flashlight', id: '-196667575', costs: { 'techparts': 1, 'metalspring': 1 } },
+    { name: 'Extended Mag', id: '-2005491391', costs: { 'metalspring': 2 } },
+    { name: 'Simple Handmade Sight', id: '-855748505', costs: { 'metalspring': 1, 'metalblade': 1 } },
+    { name: '8x scope', id: '174866732', costs: { 'techparts': 2, 'metalspring': 1 } }
   ],
   ammo: [
-    { name: '5.56 Rifle Ammo', id: '-1211166256' },
-    { name: 'Pistol Bullet', id: '785728077' },
-    { name: 'Incendiary 5.56 Ammo', id: '605467368' },
-    { name: '12ga Buckshot', id: '-1685290200' },
-    { name: '12 Gauge Slug', id: '-727717969' }
+    { name: '5.56 Rifle Ammo', id: '-1211166256', costs: { 'gunpowder': 12 } },
+    { name: 'Pistol Bullet', id: '785728077', costs: { 'gunpowder': 10 } },
+    { name: 'Incendiary 5.56 Ammo', id: '605467368', costs: { 'gunpowder': 14 } },
+    { name: '12ga Buckshot', id: '-1685290200', costs: { 'gunpowder': 15 } },
+    { name: '12 Gauge Slug', id: '-727717969', costs: { 'gunpowder': 16 } }
   ],
   medical: [
-    { name: 'Bandage', id: '-2072273936' },
-    { name: 'Syringe', id: '1079279582' }
+    { name: 'Bandage', id: '-2072273936', costs: { 'cloth': 5, 'rope': 1 } },
+    { name: 'Syringe', id: '1079279582', costs: { 'cloth': 3, 'techparts': 1 } }
   ],
   barricade: [
-    { name: 'Wooden Barricade', id: '866889860' }
+    { name: 'Wooden Barricade', id: '866889860', costs: { 'wood': 150 } }
   ],
   facemask: [
-    { name: 'Coffee Can Helmet', id: '-803263829' },
-    { name: 'Metal Facemask', id: '-194953424' }
+    { name: 'Coffee Can Helmet', id: '-803263829', costs: { 'metal.fragments': 50 } },
+    { name: 'Metal Facemask', id: '-194953424', costs: { 'metal.fragments': 100, 'rope': 2 } }
   ],
   chestplate: [
-    { name: 'Metal Chestplate', id: '1110385766' },
-    { name: 'Roadsign Jacket', id: '-2002277461' },
-    { name: 'Jacket', id: '-1163532624' },
-    { name: 'Leather Chest', id: '1751045826' }
+    { name: 'Metal Chestplate', id: '1110385766', costs: { 'metal.fragments': 150, 'rope': 3 } },
+    { name: 'Roadsign Jacket', id: '-2002277461', costs: { 'roadsigns': 1, 'rope': 2 } },
+    { name: 'Jacket', id: '-1163532624', costs: { 'cloth': 30, 'rope': 3 } },
+    { name: 'Leather Chest', id: '1751045826', costs: { 'leather': 50 } }
   ],
   legarmour: [
-    { name: 'Roadsign Kilt', id: '1850456855' }
+    { name: 'Roadsign Kilt', id: '1850456855', costs: { 'roadsigns': 1, 'rope': 2 } }
   ],
   hoodie: [
-    { name: 'Hoodie', id: '1751045826' }
+    { name: 'Hoodie', id: '1751045826', costs: { 'cloth': 40 } }
   ],
   pants: [
-    { name: 'Pants', id: '237239288' }
+    { name: 'Pants', id: '237239288', costs: { 'cloth': 30 } }
   ],
   gloves: [
-    { name: 'Burlap Gloves', id: '-1110266305' },
-    { name: 'Roadsign Gloves', id: '-699558439' }
+    { name: 'Burlap Gloves', id: '-1110266305', costs: { 'cloth': 10 } },
+    { name: 'Roadsign Gloves', id: '-699558439', costs: { 'roadsigns': 1 } }
   ],
   boots: [
-    { name: 'Boots', id: '-1549739227' },
-    { name: 'Frog Boots', id: '-1000573653' },
-    { name: 'Leather Boots', id: '794356786' }
+    { name: 'Boots', id: '-1549739227', costs: { 'cloth': 20, 'leather': 10 } },
+    { name: 'Frog Boots', id: '-1000573653', costs: { 'cloth': 20, 'leather': 15 } },
+    { name: 'Leather Boots', id: '794356786', costs: { 'leather': 25 } }
   ]
 };
 
@@ -6811,6 +6811,107 @@ function generateCrafterBind() {
 
   const fullBind = 'bind p ' + bindCommands.join(';') + ';';
   document.getElementById('cbOutputText').textContent = fullBind;
+  
+  // Calculate and display resources
+  calculateAndDisplayResources();
+}
+
+// Map resource names to their icon filenames
+const resourceIconMap = {
+  'riflebody': 'riflebody.png',
+  'metalspring': 'metalspring.png',
+  'metalpipe': 'metalpipe.png',
+  'smgbody': 'smgbody.png',
+  'metalblade': 'metalblade.png',
+  'techparts': 'techparts.png',
+  'gunpowder': 'gunpowder.png',
+  'cloth': 'cloth.png',
+  'rope': 'rope.png',
+  'metal.fragments': 'metal.fragments.png',
+  'roadsigns': 'roadsigns.png',
+  'leather': 'leather.png',
+  'wood': 'wood.png'
+};
+
+function calculateAndDisplayResources() {
+  const items = [
+    { id: 'cb-weapon', qty: 'cb-weapon-qty', category: 'weapon' },
+    { id: 'cb-attachment1', qty: 'cb-attachment1-qty', category: 'attachment' },
+    { id: 'cb-attachment2', qty: 'cb-attachment2-qty', category: 'attachment' },
+    { id: 'cb-attachment3', qty: 'cb-attachment3-qty', category: 'attachment' },
+    { id: 'cb-ammo', qty: 'cb-ammo-qty', category: 'ammo' },
+    { id: 'cb-medical', qty: 'cb-medical-qty', category: 'medical' },
+    { id: 'cb-barricades', qty: 'cb-barricades-qty', category: 'barricade' },
+    { id: 'cb-facemask', qty: 'cb-facemask-qty', category: 'facemask' },
+    { id: 'cb-chestplate', qty: 'cb-chestplate-qty', category: 'chestplate' },
+    { id: 'cb-legarmour', qty: 'cb-legarmour-qty', category: 'legarmour' },
+    { id: 'cb-hoodie', qty: 'cb-hoodie-qty', category: 'hoodie' },
+    { id: 'cb-pants', qty: 'cb-pants-qty', category: 'pants' },
+    { id: 'cb-gloves', qty: 'cb-gloves-qty', category: 'gloves' },
+    { id: 'cb-boots', qty: 'cb-boots-qty', category: 'boots' }
+  ];
+
+  const totalResources = {};
+
+  items.forEach(item => {
+    const select = document.getElementById(item.id);
+    const qtyInput = document.getElementById(item.qty);
+    
+    if (select && select.value) {
+      const qty = parseInt(qtyInput.value) || 1;
+      
+      // Find the selected item in crafterItems
+      const category = crafterItems[item.category];
+      const selectedItem = category.find(i => i.id === select.value);
+      
+      if (selectedItem && selectedItem.costs) {
+        // Add up all the costs
+        Object.entries(selectedItem.costs).forEach(([resourceName, resourceCost]) => {
+          const totalCost = resourceCost * qty;
+          totalResources[resourceName] = (totalResources[resourceName] || 0) + totalCost;
+        });
+      }
+    }
+  });
+
+  // Display resources
+  const resourcesList = document.getElementById('cbResourcesList');
+  const resourcesContainer = document.getElementById('cbResources');
+  
+  if (Object.keys(totalResources).length === 0) {
+    resourcesContainer.classList.add('hidden');
+    return;
+  }
+
+  resourcesList.innerHTML = '';
+  
+  // Sort resources alphabetically
+  const sortedResources = Object.keys(totalResources).sort();
+  
+  sortedResources.forEach(resourceName => {
+    const qty = totalResources[resourceName];
+    const iconFile = resourceIconMap[resourceName];
+    
+    const resourceItem = document.createElement('div');
+    resourceItem.className = 'resource-item';
+    
+    let iconHTML = '';
+    if (iconFile) {
+      iconHTML = `<img src="images/${iconFile}" alt="${resourceName}" class="resource-icon">`;
+    }
+    
+    resourceItem.innerHTML = `
+      ${iconHTML}
+      <div class="resource-info">
+        <div class="resource-name">${resourceName}</div>
+        <div class="resource-qty">x${qty}</div>
+      </div>
+    `;
+    
+    resourcesList.appendChild(resourceItem);
+  });
+  
+  resourcesContainer.classList.remove('hidden');
 }
 
 // Wire up buttons
@@ -6836,6 +6937,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.crafter-select').forEach(select => select.value = '');
       document.querySelectorAll('.crafter-qty').forEach(qty => qty.value = 1);
       document.getElementById('cbOutputText').textContent = 'Your keybind will appear here...';
+      document.getElementById('cbResources').classList.add('hidden');
     });
   }
 }, { once: true });
