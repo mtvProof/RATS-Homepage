@@ -6694,8 +6694,8 @@ const crafterItems = {
   ],
   attachment: [
     { name: 'Holosight', id: '442289265', costs: { 'metal.refined': 12, 'techtrash': 1 } },
-    { name: 'Laser', id: '-132516482', costs: { 'metal.refined': 10, 'techtrash': 1 } },
-    { name: 'Flashlight', id: '-196667575', costs: { 'metal.fragments': 30 } },
+    { name: 'Laser', id: '-132516482', costs: { 'metal.refined': 3, 'techtrash': 1 } },
+    { name: 'Flashlight', id: '-196667575', costs: { 'metal.refined': 3 } },
     { name: 'Extended Mag', id: '-2005491391', costs: { 'metal.refined': 10 } },
     { name: 'Simple Handmade Sight', id: '-855748505', costs: { 'metal.refined': 6 } },
     { name: '8x scope', id: '567235583', costs: { 'metal.refined': 50 } }
@@ -6720,12 +6720,11 @@ const crafterItems = {
   ],
   chestplate: [
     { name: 'Metal Chestplate', id: '1110385766', costs: { 'leather': 50, 'metal.refined': 18, 'sewingkit': 8 } },
-    { name: 'Roadsign Jacket', id: '-2002277461', costs: { 'roadsigns': 1, 'rope': 2, 'metal.fragments': 10 } },
-    { name: 'Jacket', id: '-1163532624', costs: { 'cloth': 30, 'rope': 3, 'leather': 5 } },
-    { name: 'Leather Chest', id: '1751045826', costs: { 'leather': 50, 'wood': 20 } }
+    { name: 'Roadsign Jacket', id: '-2002277461', costs: { 'leather': 20, 'roadsigns': 2, 'sewingkit': 2 } },
+    { name: 'Jacket', id: '-1163532624', costs: { 'cloth': 50, 'sewingkit': 2 } }
   ],
   legarmour: [
-    { name: 'Roadsign Kilt', id: '1850456855', costs: { 'roadsigns': 1, 'rope': 2, 'metal.fragments': 10 } }
+    { name: 'Roadsign Kilt', id: '1850456855', costs: { 'leather': 10, 'roadsigns': 1, 'sewingkit': 2 } }
   ],
   hoodie: [
     { name: 'Hoodie', id: '1751045826', costs: { 'cloth': 40, 'sewingkit': 1 } }
@@ -6734,13 +6733,13 @@ const crafterItems = {
     { name: 'Pants', id: '237239288', costs: { 'cloth': 40, 'sewingkit': 1 } }
   ],
   gloves: [
-    { name: 'Burlap Gloves', id: '21402876', costs: { 'cloth': 5 } },
-    { name: 'Leather Gloves', id: '1366282552', costs: { 'leather': 20 } }
+    { name: 'Leather Gloves', id: '1366282552', costs: { 'leather': 20 } },
+    { name: 'Roadsign Gloves', id: '-854049191', costs: { 'leather': 20, 'roadsigns': 1, 'sewingkit': 2 } }
   ],
   boots: [
     { name: 'Boots', id: '-1549739227', costs: { 'leather': 20, 'metal.fragments': 15, 'sewingkit': 1 } },
-    { name: 'Frog Boots', id: '-1000573653', costs: { 'cloth': 20, 'leather': 15, 'wood': 15 } },
-    { name: 'Leather Boots', id: '794356786', costs: { 'leather': 25, 'wood': 10 } }
+    { name: 'Frog Boots', id: '-1000573653', costs: { 'tarp': 1 } },
+    { name: 'Leather Boots', id: '794356786', costs: { 'leather': 10 } }
   ]
 };
 
@@ -6809,7 +6808,11 @@ function generateCrafterBind() {
     return;
   }
 
-  const fullBind = 'bind p ' + bindCommands.join(';') + ';';
+  // Get the keybind key from the input field
+  const keyInput = document.getElementById('cbKeyInput');
+  const key = keyInput && keyInput.value ? keyInput.value.toLowerCase() : 'p';
+
+  const fullBind = 'bind ' + key + ' ' + bindCommands.join(';') + ';';
   document.getElementById('cbOutputText').textContent = fullBind;
   
   // Calculate and display resources
@@ -6838,7 +6841,8 @@ const resourceIconMap = {
   'lowgradefuel': 'lowgradefuel.png',
   'sewingkit': 'sewingkit.png',
   'charcoal': 'charcoal.png',
-  'sulfur': 'sulfur.png'
+  'sulfur': 'sulfur.png',
+  'tarp': 'tarp.png'
 };
 
 function calculateAndDisplayResources() {
@@ -6952,6 +6956,22 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.crafter-qty').forEach(qty => qty.value = 1);
       document.getElementById('cbOutputText').textContent = 'Your keybind will appear here...';
       document.getElementById('cbResources').classList.add('hidden');
+    });
+  }
+
+  // Add event listener for keybind input changes
+  const keyInput = document.getElementById('cbKeyInput');
+  if (keyInput) {
+    keyInput.addEventListener('input', (e) => {
+      // Allow only single characters
+      if (e.target.value.length > 1) {
+        e.target.value = e.target.value.charAt(0);
+      }
+      // Auto-regenerate bind if there's content selected
+      const hasSelection = document.querySelectorAll('.crafter-select').some(select => select.value);
+      if (hasSelection) {
+        generateCrafterBind();
+      }
     });
   }
 }, { once: true });
