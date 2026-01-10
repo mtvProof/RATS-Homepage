@@ -6681,66 +6681,66 @@ function calculateToolCupboardAllocate() {
 // Item database with item IDs and crafting costs from corrosionhour.com
 const crafterItems = {
   weapon: [
-    { name: 'AK', id: '1545779598', costs: { 'riflebody': 1, 'metalspring': 1, 'metalpipe': 2 } },
-    { name: 'Bolt Action Rifle', id: '1588298435', costs: { 'riflebody': 1, 'metalspring': 2, 'metalblade': 1 } },
-    { name: 'Custom SMG', id: '1796682209', costs: { 'smgbody': 1, 'metalspring': 2 } },
-    { name: 'Hmlmg', id: '-1214542497', costs: { 'riflebody': 1, 'metalspring': 3, 'metalpipe': 2 } },
-    { name: 'Python', id: '1373971859', costs: { 'metalspring': 1, 'metalblade': 2 } },
-    { name: 'Pump Shotgun', id: '795371088', costs: { 'riflebody': 1, 'metalblade': 2, 'metalspring': 1 } },
-    { name: 'Semi-Automatic Pistol', id: '818877484', costs: { 'metalspring': 1, 'metalblade': 1 } },
-    { name: 'Semi-Automatic Rifle', id: '-904863145', costs: { 'riflebody': 1, 'metalspring': 2, 'metalblade': 1 } },
-    { name: 'Thompson SMG', id: '-1758372725', costs: { 'smgbody': 1, 'metalspring': 2, 'metalpipe': 1 } },
-    { name: 'MP5', id: '1318558775', costs: { 'smgbody': 1, 'metalspring': 1, 'metalblade': 1 } }
+    { name: 'AK', id: '1545779598', costs: { 'riflebody': 1, 'metalspring': 1, 'metalpipe': 2, 'metal.fragments': 25 } },
+    { name: 'Bolt Action Rifle', id: '1588298435', costs: { 'riflebody': 1, 'metalspring': 2, 'metalblade': 1, 'metal.fragments': 20 } },
+    { name: 'Custom SMG', id: '1796682209', costs: { 'smgbody': 1, 'metalspring': 2, 'metal.fragments': 15 } },
+    { name: 'Hmlmg', id: '-1214542497', costs: { 'riflebody': 1, 'metalspring': 3, 'metalpipe': 2, 'metal.fragments': 30 } },
+    { name: 'Python', id: '1373971859', costs: { 'metalspring': 1, 'metalblade': 2, 'metal.fragments': 15 } },
+    { name: 'Pump Shotgun', id: '795371088', costs: { 'riflebody': 1, 'metalblade': 2, 'metalspring': 1, 'metal.fragments': 20 } },
+    { name: 'Semi-Automatic Pistol', id: '818877484', costs: { 'metalspring': 1, 'metalblade': 1, 'metal.fragments': 10 } },
+    { name: 'Semi-Automatic Rifle', id: '-904863145', costs: { 'riflebody': 1, 'metalspring': 2, 'metalblade': 1, 'metal.fragments': 20 } },
+    { name: 'Thompson SMG', id: '-1758372725', costs: { 'smgbody': 1, 'metalspring': 2, 'metalpipe': 1, 'metal.fragments': 20 } },
+    { name: 'MP5', id: '1318558775', costs: { 'smgbody': 1, 'metalspring': 1, 'metalblade': 1, 'metal.fragments': 15 } }
   ],
   attachment: [
-    { name: 'Holosight', id: '442289265', costs: { 'techparts': 2, 'metalspring': 1 } },
-    { name: 'Laser', id: '-132516482', costs: { 'techparts': 1, 'metalspring': 1 } },
-    { name: 'Flashlight', id: '-196667575', costs: { 'techparts': 1, 'metalspring': 1 } },
-    { name: 'Extended Mag', id: '-2005491391', costs: { 'metalspring': 2 } },
-    { name: 'Simple Handmade Sight', id: '-855748505', costs: { 'metalspring': 1, 'metalblade': 1 } },
-    { name: '8x scope', id: '174866732', costs: { 'techparts': 2, 'metalspring': 1 } }
+    { name: 'Holosight', id: '442289265', costs: { 'techparts': 2, 'metalspring': 1, 'metal.fragments': 5 } },
+    { name: 'Laser', id: '-132516482', costs: { 'techparts': 1, 'metalspring': 1, 'metal.fragments': 3 } },
+    { name: 'Flashlight', id: '-196667575', costs: { 'techparts': 1, 'metalspring': 1, 'metal.fragments': 3 } },
+    { name: 'Extended Mag', id: '-2005491391', costs: { 'metalspring': 2, 'metal.fragments': 5 } },
+    { name: 'Simple Handmade Sight', id: '-855748505', costs: { 'metalspring': 1, 'metalblade': 1, 'metal.fragments': 3 } },
+    { name: '8x scope', id: '174866732', costs: { 'techparts': 2, 'metalspring': 1, 'metal.fragments': 5 } }
   ],
   ammo: [
-    { name: '5.56 Rifle Ammo', id: '-1211166256', costs: { 'gunpowder': 12 } },
-    { name: 'Pistol Bullet', id: '785728077', costs: { 'gunpowder': 10 } },
-    { name: 'Incendiary 5.56 Ammo', id: '605467368', costs: { 'gunpowder': 14 } },
-    { name: '12ga Buckshot', id: '-1685290200', costs: { 'gunpowder': 15 } },
-    { name: '12 Gauge Slug', id: '-727717969', costs: { 'gunpowder': 16 } }
+    { name: '5.56 Rifle Ammo', id: '-1211166256', costs: { 'gunpowder': 36 } },
+    { name: 'Pistol Bullet', id: '785728077', costs: { 'gunpowder': 40 } },
+    { name: 'Incendiary 5.56 Ammo', id: '605467368', costs: { 'gunpowder': 42 } },
+    { name: '12ga Buckshot', id: '-1685290200', costs: { 'gunpowder': 45 } },
+    { name: '12 Gauge Slug', id: '-727717969', costs: { 'gunpowder': 48 } }
   ],
   medical: [
     { name: 'Bandage', id: '-2072273936', costs: { 'cloth': 5, 'rope': 1 } },
-    { name: 'Syringe', id: '1079279582', costs: { 'cloth': 3, 'techparts': 1 } }
+    { name: 'Syringe', id: '1079279582', costs: { 'cloth': 3, 'techparts': 1, 'metal.fragments': 5 } }
   ],
   barricade: [
     { name: 'Wooden Barricade', id: '866889860', costs: { 'wood': 150 } }
   ],
   facemask: [
-    { name: 'Coffee Can Helmet', id: '-803263829', costs: { 'metal.fragments': 50 } },
-    { name: 'Metal Facemask', id: '-194953424', costs: { 'metal.fragments': 100, 'rope': 2 } }
+    { name: 'Coffee Can Helmet', id: '-803263829', costs: { 'metal.fragments': 50, 'wood': 10 } },
+    { name: 'Metal Facemask', id: '-194953424', costs: { 'metal.fragments': 100, 'rope': 2, 'metal.refined': 10 } }
   ],
   chestplate: [
-    { name: 'Metal Chestplate', id: '1110385766', costs: { 'metal.fragments': 150, 'rope': 3 } },
-    { name: 'Roadsign Jacket', id: '-2002277461', costs: { 'roadsigns': 1, 'rope': 2 } },
-    { name: 'Jacket', id: '-1163532624', costs: { 'cloth': 30, 'rope': 3 } },
-    { name: 'Leather Chest', id: '1751045826', costs: { 'leather': 50 } }
+    { name: 'Metal Chestplate', id: '1110385766', costs: { 'metal.fragments': 150, 'rope': 3, 'metal.refined': 15 } },
+    { name: 'Roadsign Jacket', id: '-2002277461', costs: { 'roadsigns': 1, 'rope': 2, 'metal.fragments': 10 } },
+    { name: 'Jacket', id: '-1163532624', costs: { 'cloth': 30, 'rope': 3, 'leather': 5 } },
+    { name: 'Leather Chest', id: '1751045826', costs: { 'leather': 50, 'wood': 20 } }
   ],
   legarmour: [
-    { name: 'Roadsign Kilt', id: '1850456855', costs: { 'roadsigns': 1, 'rope': 2 } }
+    { name: 'Roadsign Kilt', id: '1850456855', costs: { 'roadsigns': 1, 'rope': 2, 'metal.fragments': 10 } }
   ],
   hoodie: [
-    { name: 'Hoodie', id: '1751045826', costs: { 'cloth': 40 } }
+    { name: 'Hoodie', id: '1751045826', costs: { 'cloth': 40, 'wood': 10 } }
   ],
   pants: [
-    { name: 'Pants', id: '237239288', costs: { 'cloth': 30 } }
+    { name: 'Pants', id: '237239288', costs: { 'cloth': 30, 'wood': 10 } }
   ],
   gloves: [
     { name: 'Burlap Gloves', id: '-1110266305', costs: { 'cloth': 10 } },
-    { name: 'Roadsign Gloves', id: '-699558439', costs: { 'roadsigns': 1 } }
+    { name: 'Roadsign Gloves', id: '-699558439', costs: { 'roadsigns': 1, 'metal.fragments': 5 } }
   ],
   boots: [
-    { name: 'Boots', id: '-1549739227', costs: { 'cloth': 20, 'leather': 10 } },
-    { name: 'Frog Boots', id: '-1000573653', costs: { 'cloth': 20, 'leather': 15 } },
-    { name: 'Leather Boots', id: '794356786', costs: { 'leather': 25 } }
+    { name: 'Boots', id: '-1549739227', costs: { 'cloth': 20, 'leather': 10, 'wood': 10 } },
+    { name: 'Frog Boots', id: '-1000573653', costs: { 'cloth': 20, 'leather': 15, 'wood': 15 } },
+    { name: 'Leather Boots', id: '794356786', costs: { 'leather': 25, 'wood': 10 } }
   ]
 };
 
@@ -6828,6 +6828,7 @@ const resourceIconMap = {
   'cloth': 'cloth.png',
   'rope': 'rope.png',
   'metal.fragments': 'metal.fragments.png',
+  'metal.refined': 'metal.refined.png',
   'roadsigns': 'roadsigns.png',
   'leather': 'leather.png',
   'wood': 'wood.png'
