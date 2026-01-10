@@ -6701,8 +6701,8 @@ const crafterItems = {
     { name: '8x scope', id: '567235583', costs: { 'metal.refined': 50 } }
   ],
   ammo: [
-    { name: '5.56 Rifle Ammo', id: '-1211166256', stackSize: 6, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
-    { name: 'Pistol Bullet', id: '785728077', stackSize: 128, costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
+    { name: '5.56 Rifle Ammo', id: '-1211166256', stackSize: 3, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
+    { name: 'Pistol Bullet', id: '785728077', stackSize: 4, costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
     { name: 'Incendiary 5.56 Ammo', id: '605467368', stackSize: 6, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
     { name: '12ga Buckshot', id: '-1685290200', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
     { name: '12 Gauge Slug', id: '-727717969', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } }
