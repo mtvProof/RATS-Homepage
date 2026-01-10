@@ -6681,7 +6681,7 @@ function calculateToolCupboardAllocate() {
 // Item database with item IDs and crafting costs from corrosionhour.com
 const crafterItems = {
   weapon: [
-    { name: 'AK', id: '1545779598', costs: { 'riflebody': 1, 'metalspring': 1, 'metalpipe': 2, 'metal.fragments': 25 } },
+    { name: 'AK', id: '1545779598', costs: { 'riflebody': 1, 'metalspring': 4, 'metal.refined': 50, 'wood': 200 } },
     { name: 'Bolt Action Rifle', id: '1588298435', costs: { 'riflebody': 1, 'metalspring': 2, 'metalblade': 1, 'metal.fragments': 20 } },
     { name: 'Custom SMG', id: '1796682209', costs: { 'smgbody': 1, 'metalspring': 2, 'metal.fragments': 15 } },
     { name: 'Hmlmg', id: '-1214542497', costs: { 'riflebody': 1, 'metalspring': 3, 'metalpipe': 2, 'metal.fragments': 30 } },
