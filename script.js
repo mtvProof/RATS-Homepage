@@ -6681,118 +6681,66 @@ function calculateToolCupboardAllocate() {
 // Item database with item IDs from corrosionhour.com
 const crafterItems = {
   weapon: [
-    { name: 'Assault Rifle', id: '1545779598' },
-    { name: 'Bolt Action Rifle', id: '-1211166256' },
-    { name: 'Combat Knife', id: '42901724' },
-    { name: 'Custom SMG', id: '-1751828260' },
-    { name: 'Eoka Pistol', id: '-530023696' },
-    { name: 'Hunting Bow', id: '-1853203104' },
-    { name: 'Hmlmg', id: '1080173928' },
-    { name: 'Muzzle Brake', id: '1079279582' },
-    { name: 'Nailgun', id: '-1215753532' },
-    { name: 'Pistol', id: '-1577829978' },
-    { name: 'Python Revolver', id: '1373240771' },
-    { name: 'Pump Shotgun', id: '1755371572' },
-    { name: 'Spas-12 Shotgun', id: '2005491391' },
-    { name: 'Semi-Automatic Pistol', id: '1249379407' },
-    { name: 'Semi-Automatic Rifle', id: '-1424233271' },
-    { name: 'Stone Spear', id: '102254886' },
-    { name: 'Thompson SMG', id: '-1435593949' },
-    { name: 'Wooden Spear', id: '1018119836' }
+    { name: 'AK', id: '1545779598' },
+    { name: 'Bolt Action Rifle', id: '1588298435' },
+    { name: 'Custom SMG', id: '1796682209' },
+    { name: 'Hmlmg', id: '-1214542497' },
+    { name: 'Python', id: '1373971859' },
+    { name: 'Pump Shotgun', id: '795371088' },
+    { name: 'Semi-Automatic Pistol', id: '818877484' },
+    { name: 'Semi-Automatic Rifle', id: '-904863145' },
+    { name: 'Thompson SMG', id: '-1758372725' },
+    { name: 'MP5', id: '1318558775' }
   ],
   attachment: [
-    { name: 'Angled Foregrip', id: '1159991973' },
-    { name: 'Bandana Mask', id: '-1335010563' },
-    { name: 'Flashlight', id: '-1867055341' },
-    { name: 'Foregrip', id: '-1310406659' },
-    { name: 'Holo Sight', id: '-1345565573' },
-    { name: 'Laser Sight', id: '503473721' },
-    { name: 'Muzzle Brake', id: '1079279582' },
-    { name: 'Silencer', id: '-378890616' },
-    { name: 'Tactical Gloves', id: '-1384752181' },
-    { name: 'Aimpoint', id: '1078149547' }
+    { name: 'Holosight', id: '442289265' },
+    { name: 'Laser', id: '-132516482' },
+    { name: 'Flashlight', id: '-196667575' },
+    { name: 'Extended Mag', id: '-2005491391' },
+    { name: 'Simple Handmade Sight', id: '-855748505' },
+    { name: '8x scope', id: '174866732' }
   ],
   ammo: [
-    { name: '5.56 Rifle Ammo', id: '-1211788626' },
-    { name: '.45 ACP Ammo', id: '-1684051666' },
-    { name: '.357 Magnum Ammo', id: '-1608173820' },
-    { name: '.22 Caliber', id: '-1012871273' },
-    { name: '12 Gauge Slug', id: '-1382637976' },
-    { name: '12 Gauge Buckshot', id: '-1685290148' },
-    { name: 'High Velocity Arrow', id: '-1368189814' },
-    { name: 'Flame Arrow', id: '-2097376851' },
-    { name: 'Nail', id: '-433049624' },
-    { name: 'Nailgun Nails', id: '-433049624' }
+    { name: '5.56 Rifle Ammo', id: '-1211166256' },
+    { name: 'Pistol Bullet', id: '785728077' },
+    { name: 'Incendiary 5.56 Ammo', id: '605467368' },
+    { name: '12ga Buckshot', id: '-1685290200' },
+    { name: '12 Gauge Slug', id: '-727717969' }
   ],
   medical: [
-    { name: 'Bandage', id: '-1076255321' },
-    { name: 'Syringe', id: '379044529' },
-    { name: 'Anti-Radiation Powder', id: '-1701069368' },
-    { name: 'Radiation Protection', id: '-1701069368' },
-    { name: 'Medkit', id: '-1223245353' },
-    { name: 'Large Medkit', id: '1079276303' },
-    { name: 'Morphine', id: '-1193949038' },
-    { name: 'Syringe', id: '379044529' }
+    { name: 'Bandage', id: '-2072273936' },
+    { name: 'Syringe', id: '1079279582' }
   ],
   barricade: [
-    { name: 'Barricade', id: '-1929382515' },
-    { name: 'Garage Door', id: '-1625510838' },
-    { name: 'Metal Barricade', id: '1213215550' },
-    { name: 'Sandbag Barricade', id: '-1848035450' },
-    { name: 'Wooden Barricade', id: '1929382515' },
-    { name: 'Chain Link Fence', id: '-509841129' },
-    { name: 'Palisade', id: '1085255301' },
-    { name: 'Concertina Coil', id: '1516359745' }
+    { name: 'Wooden Barricade', id: '866889860' }
   ],
   facemask: [
-    { name: 'Bandana Mask', id: '-1335010563' },
-    { name: 'Balaclava Mask', id: '1345056071' },
-    { name: 'Facemask', id: '1302190762' },
-    { name: 'Hockey Mask', id: '131740420' },
-    { name: 'Kabuki Mask', id: '1625885481' },
-    { name: 'Metal Facemask', id: '1302190762' },
-    { name: 'Riot Helmet', id: '2118227528' },
-    { name: 'Welding Mask', id: '1149855271' }
+    { name: 'Coffee Can Helmet', id: '-803263829' },
+    { name: 'Metal Facemask', id: '-194953424' }
   ],
   chestplate: [
-    { name: 'Chest Armor', id: '1770502121' },
-    { name: 'Concrete Chest Armor', id: '282905415' },
-    { name: 'Kevlar Vest', id: '-2137291306' },
-    { name: 'Leather Chest', id: '1751045826' },
-    { name: 'Metal Chest Armor', id: '-1566514437' },
-    { name: 'Roadsign Chest Armor', id: '-1282062173' },
-    { name: 'Tactical Shirt', id: '-1751737655' }
+    { name: 'Metal Chestplate', id: '1110385766' },
+    { name: 'Roadsign Jacket', id: '-2002277461' },
+    { name: 'Jacket', id: '-1163532624' },
+    { name: 'Leather Chest', id: '1751045826' }
   ],
   legarmour: [
-    { name: 'Concrete Leg Armor', id: '-1999749227' },
-    { name: 'Kevlar Pants', id: '-2104898197' },
-    { name: 'Leather Pants', id: '1288262708' },
-    { name: 'Metal Leg Armor', id: '1407833975' },
-    { name: 'Roadsign Leg Armor', id: '1409638168' },
-    { name: 'Tactical Pants', id: '-2072273936' }
+    { name: 'Roadsign Kilt', id: '1850456855' }
   ],
   hoodie: [
-    { name: 'Hoodie', id: '1110385766' },
-    { name: 'Arctic Hoodie', id: '-1929382515' },
-    { name: 'Graffiti Hoodie', id: '1848035450' }
+    { name: 'Hoodie', id: '1751045826' }
   ],
   pants: [
-    { name: 'Cargo Pants', id: '1850456855' },
-    { name: 'Leather Pants', id: '1288262708' },
-    { name: 'Shorts', id: '-699558439' },
-    { name: 'Tactical Pants', id: '-2072273936' }
+    { name: 'Pants', id: '237239288' }
   ],
   gloves: [
     { name: 'Burlap Gloves', id: '-1110266305' },
-    { name: 'Leather Gloves', id: '1079279582' },
-    { name: 'Tactical Gloves', id: '-1384752181' },
-    { name: 'Wool Gloves', id: '1079279582' }
+    { name: 'Roadsign Gloves', id: '-699558439' }
   ],
   boots: [
-    { name: 'Boots', id: '1079279582' },
-    { name: 'Leather Boots', id: '-194953424' },
-    { name: 'Shoes', id: '442289265' },
-    { name: 'Tactical Boots', id: '237239288' }
+    { name: 'Boots', id: '-1549739227' },
+    { name: 'Frog Boots', id: '-1000573653' },
+    { name: 'Leather Boots', id: '794356786' }
   ]
 };
 
