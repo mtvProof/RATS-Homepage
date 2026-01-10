@@ -6715,7 +6715,7 @@ const crafterItems = {
     { name: 'Wooden Barricade', id: '866889860', costs: { 'wood': 300, 'rope': 1 } }
   ],
   facemask: [
-    { name: 'Coffee Can Helmet', id: '-803263829', costs: { 'metal.fragments': 50, 'wood': 10 } },
+    { name: 'Coffee Can Helmet', id: '-803263829', costs: { 'cloth': 15, 'metal.fragments': 60, 'sewingkit': 1 } },
     { name: 'Metal Facemask', id: '-194953424', costs: { 'leather': 50, 'metal.refined': 15, 'sewingkit': 6 } }
   ],
   chestplate: [
@@ -6728,17 +6728,17 @@ const crafterItems = {
     { name: 'Roadsign Kilt', id: '1850456855', costs: { 'roadsigns': 1, 'rope': 2, 'metal.fragments': 10 } }
   ],
   hoodie: [
-    { name: 'Hoodie', id: '1751045826', costs: { 'cloth': 40, 'wood': 10 } }
+    { name: 'Hoodie', id: '1751045826', costs: { 'cloth': 40, 'sewingkit': 1 } }
   ],
   pants: [
-    { name: 'Pants', id: '237239288', costs: { 'cloth': 30, 'wood': 10 } }
+    { name: 'Pants', id: '237239288', costs: { 'cloth': 40, 'sewingkit': 1 } }
   ],
   gloves: [
-    { name: 'Burlap Gloves', id: '-1110266305', costs: { 'cloth': 10 } },
-    { name: 'Roadsign Gloves', id: '-699558439', costs: { 'roadsigns': 1, 'metal.fragments': 5 } }
+    { name: 'Burlap Gloves', id: '21402876', costs: { 'cloth': 5 } },
+    { name: 'Leather Gloves', id: '1366282552', costs: { 'leather': 20 } }
   ],
   boots: [
-    { name: 'Boots', id: '-1549739227', costs: { 'cloth': 20, 'leather': 10, 'wood': 10 } },
+    { name: 'Boots', id: '-1549739227', costs: { 'leather': 20, 'metal.fragments': 15, 'sewingkit': 1 } },
     { name: 'Frog Boots', id: '-1000573653', costs: { 'cloth': 20, 'leather': 15, 'wood': 15 } },
     { name: 'Leather Boots', id: '794356786', costs: { 'leather': 25, 'wood': 10 } }
   ]
