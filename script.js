@@ -6701,11 +6701,11 @@ const crafterItems = {
     { name: '8x scope', id: '174866732', costs: { 'techparts': 2, 'metalspring': 1, 'metal.fragments': 5 } }
   ],
   ammo: [
-    { name: '5.56 Rifle Ammo', id: '-1211166256', costs: { 'gunpowder': 36 } },
-    { name: 'Pistol Bullet', id: '785728077', costs: { 'gunpowder': 40 } },
-    { name: 'Incendiary 5.56 Ammo', id: '605467368', costs: { 'gunpowder': 42 } },
-    { name: '12ga Buckshot', id: '-1685290200', costs: { 'gunpowder': 45 } },
-    { name: '12 Gauge Slug', id: '-727717969', costs: { 'gunpowder': 48 } }
+    { name: '5.56 Rifle Ammo', id: '-1211166256', costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
+    { name: 'Pistol Bullet', id: '785728077', costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
+    { name: 'Incendiary 5.56 Ammo', id: '605467368', costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
+    { name: '12ga Buckshot', id: '-1685290200', costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
+    { name: '12 Gauge Slug', id: '-727717969', costs: { 'gunpowder': 5, 'metal.fragments': 10 } }
   ],
   medical: [
     { name: 'Bandage', id: '-2072273936', costs: { 'cloth': 5, 'rope': 1 } },
