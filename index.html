@@ -22,6 +22,7 @@
       <button id="navElectrical" onclick="showPage('electrical')">Electrical</button>
       <button id="navArtwork" onclick="showPage('artwork')">Artwork</button>
       <button id="navToolcupboard" onclick="showPage('toolcupboard')">Tool Cupboard</button>
+      <button id="navCrafterbind" onclick="showPage('crafterbind')">Crafter Bind</button>
       <button id="navLocked" onclick="showLockedPage()">Locked</button>
     </div>
   </nav>
@@ -116,6 +117,180 @@
           <button id="tcCopyAll">Copy All</button>
         </div>
         <div id="tcResults" class="tc-results"></div>
+      </section>
+    </div>
+
+    <!-- CRAFTER BIND page -->
+    <div id="crafterbindPage" class="page hidden">
+      <section id="crafterbind">
+        <h2>Crafter Bind Generator</h2>
+        <p>Create a custom keybind for crafting items. Select items and quantities from the dropdowns below.</p>
+        
+        <div class="crafter-grid">
+          <!-- Weapon -->
+          <div class="crafter-item">
+            <label>Weapon</label>
+            <div class="crafter-row">
+              <select id="cb-weapon" class="crafter-select">
+                <option value="">Select weapon...</option>
+              </select>
+              <input type="number" id="cb-weapon-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Attachment 1 -->
+          <div class="crafter-item">
+            <label>Attachment 1</label>
+            <div class="crafter-row">
+              <select id="cb-attachment1" class="crafter-select">
+                <option value="">Select attachment...</option>
+              </select>
+              <input type="number" id="cb-attachment1-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Attachment 2 -->
+          <div class="crafter-item">
+            <label>Attachment 2</label>
+            <div class="crafter-row">
+              <select id="cb-attachment2" class="crafter-select">
+                <option value="">Select attachment...</option>
+              </select>
+              <input type="number" id="cb-attachment2-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Attachment 3 -->
+          <div class="crafter-item">
+            <label>Attachment 3</label>
+            <div class="crafter-row">
+              <select id="cb-attachment3" class="crafter-select">
+                <option value="">Select attachment...</option>
+              </select>
+              <input type="number" id="cb-attachment3-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Ammo -->
+          <div class="crafter-item">
+            <label>Ammo</label>
+            <div class="crafter-row">
+              <select id="cb-ammo" class="crafter-select">
+                <option value="">Select ammo...</option>
+              </select>
+              <input type="number" id="cb-ammo-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Medical -->
+          <div class="crafter-item">
+            <label>Medical</label>
+            <div class="crafter-row">
+              <select id="cb-medical" class="crafter-select">
+                <option value="">Select medical...</option>
+              </select>
+              <input type="number" id="cb-medical-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Barricades -->
+          <div class="crafter-item">
+            <label>Barricades</label>
+            <div class="crafter-row">
+              <select id="cb-barricades" class="crafter-select">
+                <option value="">Select barricade...</option>
+              </select>
+              <input type="number" id="cb-barricades-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Face Mask -->
+          <div class="crafter-item">
+            <label>Face Mask</label>
+            <div class="crafter-row">
+              <select id="cb-facemask" class="crafter-select">
+                <option value="">Select face mask...</option>
+              </select>
+              <input type="number" id="cb-facemask-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Chestplate -->
+          <div class="crafter-item">
+            <label>Chestplate</label>
+            <div class="crafter-row">
+              <select id="cb-chestplate" class="crafter-select">
+                <option value="">Select chestplate...</option>
+              </select>
+              <input type="number" id="cb-chestplate-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Leg Armour -->
+          <div class="crafter-item">
+            <label>Leg Armour</label>
+            <div class="crafter-row">
+              <select id="cb-legarmour" class="crafter-select">
+                <option value="">Select leg armour...</option>
+              </select>
+              <input type="number" id="cb-legarmour-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Hoodie -->
+          <div class="crafter-item">
+            <label>Hoodie</label>
+            <div class="crafter-row">
+              <select id="cb-hoodie" class="crafter-select">
+                <option value="">Select hoodie...</option>
+              </select>
+              <input type="number" id="cb-hoodie-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Pants -->
+          <div class="crafter-item">
+            <label>Pants</label>
+            <div class="crafter-row">
+              <select id="cb-pants" class="crafter-select">
+                <option value="">Select pants...</option>
+              </select>
+              <input type="number" id="cb-pants-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Gloves -->
+          <div class="crafter-item">
+            <label>Gloves</label>
+            <div class="crafter-row">
+              <select id="cb-gloves" class="crafter-select">
+                <option value="">Select gloves...</option>
+              </select>
+              <input type="number" id="cb-gloves-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+
+          <!-- Boots -->
+          <div class="crafter-item">
+            <label>Boots</label>
+            <div class="crafter-row">
+              <select id="cb-boots" class="crafter-select">
+                <option value="">Select boots...</option>
+              </select>
+              <input type="number" id="cb-boots-qty" class="crafter-qty" min="1" value="1" placeholder="Qty">
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+          <button id="cbGenerate">Generate Bind</button>
+          <button id="cbCopy">Copy Bind</button>
+          <button id="cbClear">Clear All</button>
+        </div>
+
+        <div id="cbOutput" class="crafter-output">
+          <p id="cbOutputText">Your keybind will appear here...</p>
+        </div>
       </section>
     </div>
 
