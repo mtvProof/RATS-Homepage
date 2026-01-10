@@ -6701,11 +6701,11 @@ const crafterItems = {
     { name: '8x scope', id: '174866732', costs: { 'techparts': 2, 'metalspring': 1, 'metal.fragments': 5 } }
   ],
   ammo: [
-    { name: '5.56 Rifle Ammo', id: '-1211166256', costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
-    { name: 'Pistol Bullet', id: '785728077', costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
-    { name: 'Incendiary 5.56 Ammo', id: '605467368', costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
-    { name: '12ga Buckshot', id: '-1685290200', costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
-    { name: '12 Gauge Slug', id: '-727717969', costs: { 'gunpowder': 5, 'metal.fragments': 10 } }
+    { name: '5.56 Rifle Ammo', id: '-1211166256', stackSize: 6, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
+    { name: 'Pistol Bullet', id: '785728077', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
+    { name: 'Incendiary 5.56 Ammo', id: '605467368', stackSize: 6, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
+    { name: '12ga Buckshot', id: '-1685290200', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
+    { name: '12 Gauge Slug', id: '-727717969', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } }
   ],
   medical: [
     { name: 'Bandage', id: '-2072273936', costs: { 'cloth': 5, 'rope': 1 } },
@@ -6859,16 +6859,22 @@ function calculateAndDisplayResources() {
     const qtyInput = document.getElementById(item.qty);
     
     if (select && select.value) {
-      const qty = parseInt(qtyInput.value) || 1;
+      const qtyRequested = parseInt(qtyInput.value) || 1;
       
       // Find the selected item in crafterItems
       const category = crafterItems[item.category];
       const selectedItem = category.find(i => i.id === select.value);
       
       if (selectedItem && selectedItem.costs) {
+        // For ammo, calculate number of crafts needed based on stack size
+        let craftsNeeded = qtyRequested;
+        if (item.category === 'ammo' && selectedItem.stackSize) {
+          craftsNeeded = Math.ceil(qtyRequested / selectedItem.stackSize);
+        }
+        
         // Add up all the costs
         Object.entries(selectedItem.costs).forEach(([resourceName, resourceCost]) => {
-          const totalCost = resourceCost * qty;
+          const totalCost = resourceCost * craftsNeeded;
           totalResources[resourceName] = (totalResources[resourceName] || 0) + totalCost;
         });
       }
