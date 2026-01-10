@@ -6693,33 +6693,33 @@ const crafterItems = {
     { name: 'MP5', id: '1318558775', costs: { 'smgbody': 1, 'metalspring': 2, 'metal.refined': 15 } }
   ],
   attachment: [
-    { name: 'Holosight', id: '442289265', costs: { 'techparts': 2, 'metalspring': 1, 'metal.fragments': 5 } },
-    { name: 'Laser', id: '-132516482', costs: { 'techparts': 1, 'metalspring': 1, 'metal.fragments': 3 } },
-    { name: 'Flashlight', id: '-196667575', costs: { 'techparts': 1, 'metalspring': 1, 'metal.fragments': 3 } },
-    { name: 'Extended Mag', id: '-2005491391', costs: { 'metalspring': 2, 'metal.fragments': 5 } },
-    { name: 'Simple Handmade Sight', id: '-855748505', costs: { 'metalspring': 1, 'metalblade': 1, 'metal.fragments': 3 } },
-    { name: '8x scope', id: '174866732', costs: { 'techparts': 2, 'metalspring': 1, 'metal.fragments': 5 } }
+    { name: 'Holosight', id: '442289265', costs: { 'metal.refined': 12, 'techtrash': 1 } },
+    { name: 'Laser', id: '-132516482', costs: { 'metal.refined': 10, 'techtrash': 1 } },
+    { name: 'Flashlight', id: '-196667575', costs: { 'metal.fragments': 30 } },
+    { name: 'Extended Mag', id: '-2005491391', costs: { 'metal.refined': 10 } },
+    { name: 'Simple Handmade Sight', id: '-855748505', costs: { 'metal.refined': 6 } },
+    { name: '8x scope', id: '567235583', costs: { 'metal.refined': 50 } }
   ],
   ammo: [
     { name: '5.56 Rifle Ammo', id: '-1211166256', stackSize: 6, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
-    { name: 'Pistol Bullet', id: '785728077', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
+    { name: 'Pistol Bullet', id: '785728077', stackSize: 128, costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
     { name: 'Incendiary 5.56 Ammo', id: '605467368', stackSize: 6, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
     { name: '12ga Buckshot', id: '-1685290200', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
     { name: '12 Gauge Slug', id: '-727717969', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } }
   ],
   medical: [
-    { name: 'Bandage', id: '-2072273936', costs: { 'cloth': 5, 'rope': 1 } },
-    { name: 'Syringe', id: '1079279582', costs: { 'cloth': 3, 'techparts': 1, 'metal.fragments': 5 } }
+    { name: 'Bandage', id: '-2072273936', costs: { 'cloth': 4 } },
+    { name: 'Syringe', id: '1079279582', costs: { 'cloth': 15, 'metal.fragments': 10, 'lowgradefuel': 10 } }
   ],
   barricade: [
-    { name: 'Wooden Barricade', id: '866889860', costs: { 'wood': 150 } }
+    { name: 'Wooden Barricade', id: '866889860', costs: { 'wood': 300, 'rope': 1 } }
   ],
   facemask: [
     { name: 'Coffee Can Helmet', id: '-803263829', costs: { 'metal.fragments': 50, 'wood': 10 } },
-    { name: 'Metal Facemask', id: '-194953424', costs: { 'metal.fragments': 100, 'rope': 2, 'metal.refined': 10 } }
+    { name: 'Metal Facemask', id: '-194953424', costs: { 'leather': 50, 'metal.refined': 15, 'sewingkit': 6 } }
   ],
   chestplate: [
-    { name: 'Metal Chestplate', id: '1110385766', costs: { 'metal.fragments': 150, 'rope': 3, 'metal.refined': 15 } },
+    { name: 'Metal Chestplate', id: '1110385766', costs: { 'leather': 50, 'metal.refined': 18, 'sewingkit': 8 } },
     { name: 'Roadsign Jacket', id: '-2002277461', costs: { 'roadsigns': 1, 'rope': 2, 'metal.fragments': 10 } },
     { name: 'Jacket', id: '-1163532624', costs: { 'cloth': 30, 'rope': 3, 'leather': 5 } },
     { name: 'Leather Chest', id: '1751045826', costs: { 'leather': 50, 'wood': 20 } }
@@ -6824,6 +6824,7 @@ const resourceIconMap = {
   'smgbody': 'smgbody.png',
   'metalblade': 'metalblade.png',
   'techparts': 'techparts.png',
+  'techtrash': 'techtrash.png',
   'gunpowder': 'gunpowder.png',
   'cloth': 'cloth.png',
   'rope': 'rope.png',
@@ -6833,7 +6834,11 @@ const resourceIconMap = {
   'leather': 'leather.png',
   'wood': 'wood.png',
   'gears': 'gears.png',
-  'semiauto_body': 'semiauto_body.png'
+  'semiauto_body': 'semiauto_body.png',
+  'lowgradefuel': 'lowgradefuel.png',
+  'sewingkit': 'sewingkit.png',
+  'charcoal': 'charcoal.png',
+  'sulfur': 'sulfur.png'
 };
 
 function calculateAndDisplayResources() {
