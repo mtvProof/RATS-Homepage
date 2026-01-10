@@ -6682,15 +6682,15 @@ function calculateToolCupboardAllocate() {
 const crafterItems = {
   weapon: [
     { name: 'AK', id: '1545779598', costs: { 'riflebody': 1, 'metalspring': 4, 'metal.refined': 50, 'wood': 200 } },
-    { name: 'Bolt Action Rifle', id: '1588298435', costs: { 'riflebody': 1, 'metalspring': 2, 'metalblade': 1, 'metal.fragments': 20 } },
-    { name: 'Custom SMG', id: '1796682209', costs: { 'smgbody': 1, 'metalspring': 2, 'metal.fragments': 15 } },
-    { name: 'Hmlmg', id: '-1214542497', costs: { 'riflebody': 1, 'metalspring': 3, 'metalpipe': 2, 'metal.fragments': 30 } },
-    { name: 'Python', id: '1373971859', costs: { 'metalspring': 1, 'metalblade': 2, 'metal.fragments': 15 } },
-    { name: 'Pump Shotgun', id: '795371088', costs: { 'riflebody': 1, 'metalblade': 2, 'metalspring': 1, 'metal.fragments': 20 } },
-    { name: 'Semi-Automatic Pistol', id: '818877484', costs: { 'metalspring': 1, 'metalblade': 1, 'metal.fragments': 10 } },
-    { name: 'Semi-Automatic Rifle', id: '-904863145', costs: { 'riflebody': 1, 'metalspring': 2, 'metalblade': 1, 'metal.fragments': 20 } },
-    { name: 'Thompson SMG', id: '-1758372725', costs: { 'smgbody': 1, 'metalspring': 2, 'metalpipe': 1, 'metal.fragments': 20 } },
-    { name: 'MP5', id: '1318558775', costs: { 'smgbody': 1, 'metalspring': 1, 'metalblade': 1, 'metal.fragments': 15 } }
+    { name: 'Bolt Action Rifle', id: '1588298435', costs: { 'riflebody': 1, 'metalspring': 1, 'metalpipe': 3, 'metal.refined': 20 } },
+    { name: 'Custom SMG', id: '1796682209', costs: { 'smgbody': 1, 'metalspring': 1, 'metal.refined': 8 } },
+    { name: 'Hmlmg', id: '-1214542497', costs: { 'riflebody': 1, 'metalspring': 3, 'gears': 2, 'metal.refined': 60 } },
+    { name: 'Python', id: '1373971859', costs: { 'metalspring': 1, 'metalpipe': 3, 'metal.refined': 10 } },
+    { name: 'Pump Shotgun', id: '795371088', costs: { 'metalspring': 1, 'metalpipe': 2, 'metal.refined': 15 } },
+    { name: 'Semi-Automatic Pistol', id: '818877484', costs: { 'semiauto_body': 1, 'metalpipe': 1, 'metal.refined': 4 } },
+    { name: 'Semi-Automatic Rifle', id: '-904863145', costs: { 'semiauto_body': 1, 'metalspring': 1, 'metal.fragments': 450, 'metal.refined': 4 } },
+    { name: 'Thompson SMG', id: '-1758372725', costs: { 'smgbody': 1, 'metalspring': 1, 'metal.refined': 10, 'wood': 100 } },
+    { name: 'MP5', id: '1318558775', costs: { 'smgbody': 1, 'metalspring': 2, 'metal.refined': 15 } }
   ],
   attachment: [
     { name: 'Holosight', id: '442289265', costs: { 'techparts': 2, 'metalspring': 1, 'metal.fragments': 5 } },
@@ -6831,7 +6831,9 @@ const resourceIconMap = {
   'metal.refined': 'metal.refined.png',
   'roadsigns': 'roadsigns.png',
   'leather': 'leather.png',
-  'wood': 'wood.png'
+  'wood': 'wood.png',
+  'gears': 'gears.png',
+  'semiauto_body': 'semiauto_body.png'
 };
 
 function calculateAndDisplayResources() {
