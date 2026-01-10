@@ -6712,7 +6712,7 @@ const crafterItems = {
     { name: 'Syringe', id: '1079279582', costs: { 'cloth': 15, 'metal.fragments': 10, 'lowgradefuel': 10 } }
   ],
   barricade: [
-    { name: 'Wooden Barricade', id: '866889860', costs: { 'wood': 300, 'rope': 1 } }
+    { name: 'Wooden Barricade', id: '1373240771', costs: { 'wood': 250 } }
   ],
   facemask: [
     { name: 'Coffee Can Helmet', id: '-803263829', costs: { 'cloth': 15, 'metal.fragments': 60, 'sewingkit': 1 } },
