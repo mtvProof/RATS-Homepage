@@ -3668,273 +3668,6 @@ const sortingButtonsPage2 = [
 ]`
   },
   {
-    label: "Mega Locker",
-    image: "metal.facemask.png",
-    message: `[
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "metal.facemask"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "metal.plate.torso"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "roadsign.kilt"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "hoodie"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "pants"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "tactical.gloves"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "shoes.boots"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "rifle.ak"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 150,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "ammo.rifle"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 24,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "syringe.medical"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "coffeecan.helmet"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "jacket"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "roadsign.gloves"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "smg.thompson"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "rifle.semiauto"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "rifle.sks"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "smg.mp5"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 150,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "ammo.pistol"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 100,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "cloth"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "hazmatsuit"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 10,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "barricade.wood.cover"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "diving.tank"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "diving.fins"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 2,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "nightvisiongoggles"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "largebackpack"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "heavy.plate.pants"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "heavy.plate.helmet"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "heavy.plate.jacket"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 1,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "roadsign.jacket"
-  }
-]`
-  },
-  {
     label: "MC Resources",
     image: "metal.fragments.png",
     message: `[
@@ -5829,7 +5562,274 @@ const lockerButtons = [
     "BufferTransferRemaining": 0,
     "TargetItemName": "rifle.sks"
   }
-]`}
+]`},
+  {
+    label: "Mega Locker",
+    image: "metal.facemask.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metal.facemask"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metal.plate.torso"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "roadsign.kilt"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "hoodie"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "pants"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "tactical.gloves"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "shoes.boots"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "rifle.ak"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 150,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "ammo.rifle"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 24,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "syringe.medical"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "coffeecan.helmet"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "jacket"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "roadsign.gloves"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "smg.thompson"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "rifle.semiauto"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "rifle.sks"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "smg.mp5"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 150,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "ammo.pistol"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 100,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "cloth"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "hazmatsuit"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 10,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "barricade.wood.cover"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "diving.tank"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "diving.fins"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "nightvisiongoggles"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "largebackpack"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "heavy.plate.pants"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "heavy.plate.helmet"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "heavy.plate.jacket"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "roadsign.jacket"
+  }
+]`
+  }
 ];
 
 const crafterButtons = [
@@ -6120,7 +6120,7 @@ const crafterButtons = [
     "TargetCategory": null,
     "MaxAmountInOutput": 20,
     "BufferAmount": 0,
-    "MinAmountInInput": 0,
+    "MinAmountInInput": 1,
     "IsBlueprint": false,
     "BufferTransferRemaining": 0,
     "TargetItemName": "syringe.medical"
@@ -6142,6 +6142,24 @@ const crafterButtons = [
     "IsBlueprint": false,
     "BufferTransferRemaining": 0,
     "TargetItemName": "ammo.pistol"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 30,
+    "BufferAmount": 0,
+    "MinAmountInInput": 1,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "barricade.wood.cover"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 6,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "clothing.mod.armorinsert_wood"
   }
 ]`
   }
