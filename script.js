@@ -6701,11 +6701,11 @@ const crafterItems = {
     { name: '8x scope', id: '567235583', costs: { 'metal.refined': 50 } }
   ],
   ammo: [
-    { name: '5.56 Rifle Ammo', id: '-1211166256', stackSize: 3, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
+    { name: '5.56 Rifle Ammo', id: '-1211166256', stackSize: 3, costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
     { name: 'Pistol Bullet', id: '785728077', stackSize: 4, costs: { 'gunpowder': 5, 'metal.fragments': 10 } },
-    { name: 'Incendiary 5.56 Ammo', id: '605467368', stackSize: 6, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
-    { name: '12ga Buckshot', id: '-1685290200', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } },
-    { name: '12 Gauge Slug', id: '-727717969', stackSize: 8, costs: { 'gunpowder': 10, 'metal.fragments': 20 } }
+    { name: 'Incendiary 5.56 Ammo', id: '605467368', stackSize: 2, costs: { 'gunpowder': 10, 'metal.fragments': 10, 'sulfur': 5 } },
+    { name: '12ga Buckshot', id: '-1685290200', stackSize: 2, costs: { 'gunpowder': 10, 'metal.fragments': 5 } },
+    { name: '12 Gauge Slug', id: '-727717969', stackSize: 2, costs: { 'gunpowder': 10, 'metal.fragments': 5 } }
   ],
   medical: [
     { name: 'Bandage', id: '-2072273936', costs: { 'cloth': 4 } },
@@ -6798,8 +6798,27 @@ function generateCrafterBind() {
     const select = document.getElementById(item.id);
     const qtyInput = document.getElementById(item.qty);
     if (select && select.value) {
-      const qty = qtyInput.value || 1;
-      bindCommands.push(`craft.add ${select.value} ${qty}`);
+      const qtyRequested = parseInt(qtyInput.value) || 1;
+
+      // Determine number of crafts to queue. For ammo items we store
+      // `stackSize` on the item definition (bullets produced per craft).
+      // The user-entered quantity is the desired total bullets, so
+      // convert to craft units with ceil(qty / stackSize).
+      let crafts = qtyRequested;
+
+      // Find the selected item definition across crafterCategories
+      let found = null;
+      for (const cat in crafterItems) {
+        if (!Array.isArray(crafterItems[cat])) continue;
+        const match = crafterItems[cat].find(i => i.id === select.value);
+        if (match) { found = match; break; }
+      }
+
+      if (found && found.stackSize) {
+        crafts = Math.ceil(qtyRequested / found.stackSize);
+      }
+
+      bindCommands.push(`craft.add ${select.value} ${crafts}`);
     }
   });
 
