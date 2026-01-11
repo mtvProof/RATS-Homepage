@@ -6773,6 +6773,41 @@ function initCrafterBindSelects() {
       });
     });
   }
+
+  // Set sensible defaults for the dropdowns (user-requested)
+  // AK, Holosight, Laser, Extended Mag, 5.56 Rifle Ammo (128), Syringe (8), Wooden Barricade (5),
+  // Metal facemask, Metal chestplate, Roadsign kilt, Hoodie, Pants, Roadsign gloves, Boots
+  const defaults = {
+    'cb-weapon': '1545779598', // AK
+    'cb-attachment1': '442289265', // Holosight
+    'cb-attachment2': '-132516482', // Laser
+    'cb-attachment3': '-2005491391', // Extended Mag
+    'cb-ammo': '-1211166256', // 5.56 Rifle Ammo
+    'cb-ammo-qty': '128',
+    'cb-medical': '1079279582', // Syringe
+    'cb-medical-qty': '8',
+    'cb-barricades': '1373240771', // Wooden Barricade
+    'cb-barricades-qty': '5',
+    'cb-facemask': '-194953424', // Metal Facemask
+    'cb-chestplate': '1110385766', // Metal Chestplate
+    'cb-legarmour': '1850456855', // Roadsign Kilt
+    'cb-hoodie': '1751045826', // Hoodie
+    'cb-pants': '237239288', // Pants
+    'cb-gloves': '-854049191', // Roadsign Gloves
+    'cb-boots': '-1549739227' // Boots
+  };
+
+  Object.entries(defaults).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    // if it's a select, ensure the option exists before assigning
+    if (el.tagName === 'SELECT') {
+      const opt = Array.from(el.options).find(o => o.value === val);
+      if (opt) el.value = val;
+    } else if (el.tagName === 'INPUT') {
+      el.value = val;
+    }
+  });
 }
 
 function generateCrafterBind() {
