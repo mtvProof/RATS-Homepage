@@ -6792,9 +6792,13 @@ function initCrafterBindSelects() {
     'cb-chestplate': '1110385766', // Metal Chestplate
     'cb-legarmour': '1850456855', // Roadsign Kilt
     'cb-hoodie': '1751045826', // Hoodie
+    'cb-hoodie-qty': '1',
     'cb-pants': '237239288', // Pants
-  'cb-gloves': '-699558439', // Roadsign Gloves
-    'cb-boots': '-1549739227' // Boots
+    'cb-pants-qty': '1',
+    'cb-gloves': '-699558439', // Roadsign Gloves
+    'cb-gloves-qty': '1',
+    'cb-boots': '-1549739227', // Boots
+    'cb-boots-qty': '1'
   };
 
   Object.entries(defaults).forEach(([id, val]) => {
