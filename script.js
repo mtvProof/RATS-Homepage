@@ -6734,7 +6734,7 @@ const crafterItems = {
   ],
   gloves: [
     { name: 'Leather Gloves', id: '1366282552', costs: { 'leather': 20 } },
-    { name: 'Roadsign Gloves', id: '-854049191', costs: { 'leather': 20, 'roadsigns': 1, 'sewingkit': 2 } }
+    { name: 'Roadsign Gloves', id: '-699558439', costs: { 'leather': 20, 'roadsigns': 1, 'sewingkit': 2 } }
   ],
   boots: [
     { name: 'Boots', id: '-1549739227', costs: { 'leather': 20, 'metal.fragments': 15, 'sewingkit': 1 } },
@@ -6793,7 +6793,7 @@ function initCrafterBindSelects() {
     'cb-legarmour': '1850456855', // Roadsign Kilt
     'cb-hoodie': '1751045826', // Hoodie
     'cb-pants': '237239288', // Pants
-    'cb-gloves': '-854049191', // Roadsign Gloves
+  'cb-gloves': '-699558439', // Roadsign Gloves
     'cb-boots': '-1549739227' // Boots
   };
 
