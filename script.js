@@ -6696,7 +6696,7 @@ const crafterItems = {
     { name: 'Holosight', id: '442289265', costs: { 'metal.refined': 12, 'techtrash': 1 } },
     { name: 'Laser', id: '-132516482', costs: { 'metal.refined': 3, 'techtrash': 1 } },
     { name: 'Flashlight', id: '-196667575', costs: { 'metal.refined': 3 } },
-    { name: 'Extended Mag', id: '-2005491391', costs: { 'metal.refined': 10 } },
+    { name: 'Extended Mag', id: '2005491391', costs: { 'metal.refined': 10 } },
     { name: 'Simple Handmade Sight', id: '-855748505', costs: { 'metal.refined': 6 } },
     { name: '8x scope', id: '567235583', costs: { 'metal.refined': 50 } }
   ],
