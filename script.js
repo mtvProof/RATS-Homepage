@@ -6398,6 +6398,29 @@ const diagramButtons = [
 ]`
       }
     ]
+  },
+  {
+    label: 'Ammo Meds Crafters',
+    image: 'syringe.png',
+    fullImage: 'https://i.imgur.com/aGQ0vez.gif',
+    buttons: [
+      {
+        label: 'Conveyor 1',
+        message: `[]`
+      },
+      {
+        label: 'Conveyor 2',
+        message: `[]`
+      },
+      {
+        label: 'Conveyor 3',
+        message: `[]`
+      },
+      {
+        label: 'Conveyor 4',
+        message: `[]`
+      }
+    ]
   }
 ];
 
