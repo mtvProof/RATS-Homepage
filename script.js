@@ -3622,7 +3622,7 @@ const sortingButtonsPage2 = [
     message: `[
   {
     "TargetCategory": null,
-    "MaxAmountInOutput": 9,
+    "MaxAmountInOutput": 0,
     "BufferAmount": 0,
     "MinAmountInInput": 0,
     "IsBlueprint": false,
@@ -3631,7 +3631,7 @@ const sortingButtonsPage2 = [
   },
   {
     "TargetCategory": null,
-    "MaxAmountInOutput": 300,
+    "MaxAmountInOutput": 0,
     "BufferAmount": 0,
     "MinAmountInInput": 0,
     "IsBlueprint": false,
@@ -3640,30 +3640,12 @@ const sortingButtonsPage2 = [
   },
   {
     "TargetCategory": null,
-    "MaxAmountInOutput": 12,
+    "MaxAmountInOutput": 0,
     "BufferAmount": 0,
     "MinAmountInInput": 0,
     "IsBlueprint": false,
     "BufferTransferRemaining": 0,
     "TargetItemName": "largemedkit"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 0,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "minigun"
-  },
-  {
-    "TargetCategory": null,
-    "MaxAmountInOutput": 0,
-    "BufferAmount": 0,
-    "MinAmountInInput": 0,
-    "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
-    "TargetItemName": "shotgun.m4"
   }
 ]`
   },
