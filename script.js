@@ -5926,6 +5926,15 @@ const crafterButtons = [
     "IsBlueprint": false,
     "BufferTransferRemaining": 0,
     "TargetItemName": "roadsigns"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 10,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metalpipe"
   }
 ]`
   },
