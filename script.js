@@ -5321,6 +5321,24 @@ const sortingButtonsPage3 = [
   }
 ];
 
+const sortingButtonsPage4 = [
+  {
+    label: "Button 1",
+    image: "placeholder.png",
+    message: `[]`
+  },
+  {
+    label: "Button 2",
+    image: "placeholder.png",
+    message: `[]`
+  },
+  {
+    label: "Button 3",
+    image: "placeholder.png",
+    message: `[]`
+  }
+];
+
 const lockerButtons = [
   {
     label: 'AK Set',
@@ -6645,6 +6663,7 @@ document.addEventListener('DOMContentLoaded', () => {
   createButtons('sortingPage1', sortingButtonsPage1, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('sortingPage2', sortingButtonsPage2, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('sortingPage3', sortingButtonsPage3, (btn, el) => copyToClipboard(btn.message, el));
+  createButtons('sortingPage4', sortingButtonsPage4, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('lockerButtons', lockerButtons, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('crafterButtons', crafterButtons, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('diagramButtons', diagramButtons, (btn) => showDiagramAndButtons(btn));
