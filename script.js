@@ -6885,7 +6885,7 @@ const sortingButtonsPage4 = [
   },
   {
     label: "Sulfur",
-    image: "stones.png",
+    image: "gunpowder.png",
     message: `[
   {
     "TargetCategory": null,
@@ -6996,7 +6996,7 @@ const sortingButtonsPage4 = [
   },
   {
     label: "T2 Clothes",
-    image: "clothes.png",
+    image: "armor.png",
     message: `[
   {
     "TargetCategory": null,
@@ -7254,7 +7254,7 @@ const sortingButtonsPage4 = [
   },
   {
     label: "Ore / Crude",
-    image: "stones.png",
+    image: "lowgradefuel.png",
     message: `[
   {
     "TargetCategory": null,
@@ -7296,7 +7296,7 @@ const sortingButtonsPage4 = [
   },
   {
     label: "Charcoal",
-    image: "wood.png",
+    image: "furnace.large.png",
     message: `[
   {
     "TargetCategory": null,
