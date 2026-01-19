@@ -19,8 +19,6 @@ function showSortingPage(page) {
   });
   document.getElementById('sortingPage1').classList.add('hidden');
   document.getElementById('sortingPage2').classList.add('hidden');
-  document.getElementById('sortingPage3').classList.add('hidden');
-  document.getElementById('sortingPage4').classList.add('hidden');
   document.getElementById(`sortingPage${page}`).classList.remove('hidden');
 }
 
@@ -6885,7 +6883,7 @@ const sortingButtonsPage4 = [
   },
   {
     label: "Sulfur",
-    image: "gunpowder.png",
+    image: "sulfur.png",
     message: `[
   {
     "TargetCategory": null,
@@ -6996,7 +6994,7 @@ const sortingButtonsPage4 = [
   },
   {
     label: "T2 Clothes",
-    image: "armor.png",
+    image: "hat.wolf.png",
     message: `[
   {
     "TargetCategory": null,
@@ -7254,7 +7252,7 @@ const sortingButtonsPage4 = [
   },
   {
     label: "Ore / Crude",
-    image: "lowgradefuel.png",
+    image: "metal.ore.png",
     message: `[
   {
     "TargetCategory": null,
@@ -7296,7 +7294,7 @@ const sortingButtonsPage4 = [
   },
   {
     label: "Charcoal",
-    image: "furnace.large.png",
+    image: "charcoal.png",
     message: `[
   {
     "TargetCategory": null,
@@ -8683,10 +8681,9 @@ function createButtons(containerId, buttons, action) {
 
 // Initialize buttons when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  createButtons('sortingPage1', sortingButtonsPage1, (btn, el) => copyToClipboard(btn.message, el));
+  // Main Sorting uses the former page4 dataset; Mini Core stays on page2
+  createButtons('sortingPage1', sortingButtonsPage4, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('sortingPage2', sortingButtonsPage2, (btn, el) => copyToClipboard(btn.message, el));
-  createButtons('sortingPage3', sortingButtonsPage3, (btn, el) => copyToClipboard(btn.message, el));
-  createButtons('sortingPage4', sortingButtonsPage4, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('lockerButtons', lockerButtons, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('crafterButtons', crafterButtons, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('diagramButtons', diagramButtons, (btn) => showDiagramAndButtons(btn));
