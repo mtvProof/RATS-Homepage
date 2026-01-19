@@ -20,6 +20,7 @@ function showSortingPage(page) {
   document.getElementById('sortingPage1').classList.add('hidden');
   document.getElementById('sortingPage2').classList.add('hidden');
   document.getElementById('sortingPage3').classList.add('hidden');
+  document.getElementById('sortingPage4').classList.add('hidden');
   document.getElementById(`sortingPage${page}`).classList.remove('hidden');
 }
 
