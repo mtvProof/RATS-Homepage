@@ -12,7 +12,7 @@
   <img src="images/RATSLogo.png" alt="RATS Logo" class="logo">
 <h1>
   RATS Homepage
-  <span id="version">v2.9</span>
+  <span id="version">v2.10</span>
   <span id="author">by mtvProof</span>
 </h1>
   </header>
@@ -22,6 +22,7 @@
       <button id="navIndustrial" onclick="showPage('industrial')">Industrial</button>
       <button id="navElectrical" onclick="showPage('electrical')">Electrical</button>
       <button id="navArtwork" onclick="showPage('artwork')">Artwork</button>
+      <button id="navFactory" onclick="showPage('factory')">Factory</button>
       <button id="navToolcupboard" onclick="showPage('toolcupboard')">Tool Cupboard</button>
       <button id="navCrafterbind" onclick="showPage('crafterbind')">Crafter Bind</button>
       <button id="navLocked" onclick="showLockedPage()">Locked</button>
@@ -81,6 +82,18 @@
       <section id="artwork">
         <h2>Artwork</h2>
         <div id="artworkGallery" class="button-grid"></div>
+      </section>
+    </div>
+
+    <!-- FACTORY page -->
+    <div id="factoryPage" class="page hidden">
+      <section id="rocketFactory">
+        <h2>Rocket Factory</h2>
+        <div id="rocketFactoryButtons" class="button-grid"></div>
+      </section>
+      <section id="otherCrafters">
+        <h2>Other Crafters</h2>
+        <div id="otherCrafterButtons" class="button-grid"></div>
       </section>
     </div>
 

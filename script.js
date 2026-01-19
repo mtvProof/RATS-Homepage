@@ -8688,6 +8688,8 @@ document.addEventListener('DOMContentLoaded', () => {
   createButtons('crafterButtons', crafterButtons, (btn, el) => copyToClipboard(btn.message, el));
   createButtons('diagramButtons', diagramButtons, (btn) => showDiagramAndButtons(btn));
   createButtons('electricalButtons', electricalButtons, (btn, el) => showElectricalImage(btn));
+  createButtons('rocketFactoryButtons', rocketFactoryButtons, (btn, el) => copyToClipboard(btn.message, el));
+  createButtons('otherCrafterButtons', otherCrafterButtons, (btn, el) => copyToClipboard(btn.message, el));
   
   // Artwork items
   addArtworkItem('https://i.ibb.co/5X52mLC7/Chat-GPT-Image-Oct-24-2025-10-23-03-PM.png', 'Rig Timers image', 'Rig Timers');
@@ -8730,7 +8732,7 @@ function showDiagramAndButtons(diagram) {
 
 // ------------------ NEW: page switching ------------------
 function showPage(pageId) {
-  const pages = ['industrial', 'electrical', 'artwork', 'toolcupboard', 'crafterbind', 'locked'];
+  const pages = ['industrial', 'electrical', 'artwork', 'factory', 'toolcupboard', 'crafterbind', 'locked'];
   pages.forEach(p => {
     const el = document.getElementById(p + 'Page');
     if (!el) return;
@@ -8781,6 +8783,574 @@ const electricalButtons = [
     image: 'https://i.ibb.co/x82JTfDV/Untitled.gif',
     fullImage: 'https://i.ibb.co/x82JTfDV/Untitled.gif',
     link: 'https://www.rustrician.io/?circuit=beb2fdb954bda6a376005dbbb9f4dfc0'
+  }
+];
+
+// ------------------ Factory page buttons ------------------
+const rocketFactoryButtons = [
+  {
+    label: "To Factory",
+    image: "workbench3.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 6000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 24000,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metal.fragments"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 500,
+    "BufferAmount": 0,
+    "MinAmountInInput": 6000,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "lowgradefuel"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 500,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "cloth"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 4000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 48000,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "gunpowder"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 3000,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "scrap"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 200,
+    "BufferAmount": 0,
+    "MinAmountInInput": 1000,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metal.refined"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 6000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "wood"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 500,
+    "BufferAmount": 0,
+    "MinAmountInInput": 1000,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "leather"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 20,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "sewingkit"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 40,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "techparts"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 20,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "roadsigns"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 40,
+    "BufferAmount": 0,
+    "MinAmountInInput": 200,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metalpipe"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 10,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "cctv.camera"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 10,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "targeting.computer"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 6000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 30000,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "sulfur"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 6000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "charcoal"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 768,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "ammo.pistol"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "largebackpack"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 40,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metalspring"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 20,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "sheetmetal"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 200,
+    "BufferAmount": 0,
+    "MinAmountInInput": 200,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "explosives"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 40,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "pumpkin"
+  }
+]`
+  },
+  {
+    label: "Rocket Crafter IN",
+    image: "ammo.rocket.basic.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "explosives"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metalpipe"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 600,
+    "BufferAmount": 0,
+    "MinAmountInInput": 1000,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "gunpowder"
+  }
+]`
+  },
+  {
+    label: "Rocket Crafter OUT",
+    image: "ammo.rocket.basic.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "ammo.rocket.basic"
+  }
+]`
+  },
+  {
+    label: "Explosives Crafter IN",
+    image: "explosives.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 500,
+    "BufferAmount": 0,
+    "MinAmountInInput": 1000,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "gunpowder"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 200,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "lowgradefuel"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 500,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "sulfur"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 500,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metal.fragments"
+  }
+]`
+  },
+  {
+    label: "Explosives Crafter OUT",
+    image: "explosives.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 0,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "explosives"
+  }
+]`
+  },
+  {
+    label: "Gunpowder Crafter IN",
+    image: "gunpowder.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "sulfur"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "charcoal"
+  }
+]`
+  },
+  {
+    label: "Gunpowder Crafter OUT",
+    image: "gunpowder.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 0,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "gunpowder"
+  }
+]`
+  },
+  {
+    label: "Pipes Crafter IN",
+    image: "metalpipe.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 100,
+    "BufferAmount": 0,
+    "MinAmountInInput": 1,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "scrap"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 50,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metal.refined"
+  }
+]`
+  },
+  {
+    label: "Pipes Crafter OUT",
+    image: "metalpipe.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 240,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metalpipe"
+  }
+]`
+  },
+  {
+    label: "HV Rockets / Flares IN",
+    image: "ammo.rocket.hv.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 100,
+    "BufferAmount": 0,
+    "MinAmountInInput": 1,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "scrap"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 50,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metal.refined"
+  }
+]`
+  },
+  {
+    label: "HV Rockets / Flares OUT",
+    image: "ammo.rocket.hv.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 240,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metalpipe"
+  }
+]`
+  }
+];
+
+const otherCrafterButtons = [
+  {
+    label: "Turret / Python Crafter IN",
+    image: "autoturret.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 100,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metal.refined"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metalpipe"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metalspring"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 5,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "cctv.camera"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 5,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "targeting.computer"
+  }
+]`
+  },
+  {
+    label: "Python / Turret Crafter OUT",
+    image: "autoturret.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 6,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "autoturret"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 6,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "pistol.python"
+  }
+]`
+  },
+  {
+    label: "TO Pilot Box",
+    image: "ammo.rocket.hv.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 10,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "flare"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 36,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "ammo.rocket.hv"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "lowgradefuel"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "metal.fragments"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 2000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "wood"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 40,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "BufferTransferRemaining": 0,
+    "TargetItemName": "pumpkin"
+  }
+]`
   }
 ];
 // Add SAMs circuit as requested
