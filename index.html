@@ -103,25 +103,31 @@
         <div class="tc-header">
           <img id="tcBanner" src="images/cupboardtool.png" alt="Tool Cupboard" onerror="this.style.display='none'">
           <h2>Tool Cupboard Calculator</h2>
-          <div class="tc-sub">Duration fixed to <strong>24 hours</strong></div>
+          <div class="tc-sub">Optimizes storage for maximum upkeep duration</div>
         </div>
-        <p>Enter your upkeep rates (per minute). The calculator uses a fixed 24-hour duration and computes total resources needed.</p>
+        <p>Enter your daily upkeep rates. The calculator will find the optimal storage allocation for your 24-slot Tool Cupboard.</p>
         <div class="calc-grid">
           <label>
-            <img class="tc-icon" src="images/wood.png" alt="Wood" onerror="this.style.display='none'">Wood (per minute)
-            <input id="tcWood" type="number" min="0" step="any" placeholder="e.g. 5">
+            <span style="font-weight: bold;">Stack Size Multiplier</span>
+            <input id="tcStackMult" type="number" min="1" step="1" value="1" placeholder="1x, 2x, 3x, etc.">
+          </label>
+        </div>
+        <div class="calc-grid">
+          <label>
+            <img class="tc-icon" src="images/wood.png" alt="Wood" onerror="this.style.display='none'">Wood (per day)
+            <input id="tcWood" type="number" min="0" step="any" placeholder="e.g. 128">
           </label>
           <label>
-            <img class="tc-icon" src="images/stones.png" alt="Stone" onerror="this.style.display='none'">Stone (per minute)
-            <input id="tcStone" type="number" min="0" step="any" placeholder="e.g. 0">
+            <img class="tc-icon" src="images/stones.png" alt="Stone" onerror="this.style.display='none'">Stone (per day)
+            <input id="tcStone" type="number" min="0" step="any" placeholder="e.g. 756">
           </label>
           <label>
-            <img class="tc-icon" src="images/metalfragments.png" alt="Fragments" onerror="this.style.display='none'">Metal Fragments (per minute)
-            <input id="tcFrags" type="number" min="0" step="any" placeholder="e.g. 2">
+            <img class="tc-icon" src="images/metalfragments.png" alt="Fragments" onerror="this.style.display='none'">Metal Fragments (per day)
+            <input id="tcFrags" type="number" min="0" step="any" placeholder="e.g. 1736">
           </label>
           <label>
-            <img class="tc-icon" src="images/metalrefined.png" alt="HQM" onerror="this.style.display='none'">HQM (per minute)
-            <input id="tcHqm" type="number" min="0" step="any" placeholder="e.g. 0">
+            <img class="tc-icon" src="images/metalrefined.png" alt="HQM" onerror="this.style.display='none'">HQM (per day)
+            <input id="tcHqm" type="number" min="0" step="any" placeholder="e.g. 56">
           </label>
         </div>
         <div style="margin-top:12px; display:flex; gap:8px;">

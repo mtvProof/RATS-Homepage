@@ -9444,11 +9444,14 @@ function calculateToolCupboardAllocate() {
   const stone = parseFloat(document.getElementById('tcStone').value) || 0;
   const frags = parseFloat(document.getElementById('tcFrags').value) || 0;
   const hqm = parseFloat(document.getElementById('tcHqm').value) || 0;
+  const stackMult = parseFloat(document.getElementById('tcStackMult').value) || 1;
+  
+  // Stack sizes adjusted by multiplier
   const rates = [
-    { key: 'wood', rate: wood, cap: 1000, label: 'Wood' },
-    { key: 'stones', rate: stone, cap: 1000, label: 'Stone' },
-    { key: 'metal.fragments', rate: frags, cap: 1000, label: 'Metal Fragments' },
-    { key: 'metal.refined', rate: hqm, cap: 100 }
+    { key: 'wood', rate: wood, cap: 1000 * stackMult, label: 'Wood' },
+    { key: 'stones', rate: stone, cap: 1000 * stackMult, label: 'Stone' },
+    { key: 'metal.fragments', rate: frags, cap: 1000 * stackMult, label: 'Metal Fragments' },
+    { key: 'metal.refined', rate: hqm, cap: 100 * stackMult, label: 'High Quality Metal' }
   ];
   const SLOT_LIMIT = 24;
   const results = document.getElementById('tcResults');
@@ -9456,11 +9459,11 @@ function calculateToolCupboardAllocate() {
   results.innerHTML = '';
   if (rates.every(r => r.rate <= 0)) { results.innerHTML = '<div>No upkeep rates entered.</div>'; return; }
 
-  // binary search maximum runtime (minutes) such that required slots <= SLOT_LIMIT
+  // binary search maximum runtime (days) such that required slots <= SLOT_LIMIT
   const maxTPerRes = rates.map(r => r.rate > 0 ? (r.cap * SLOT_LIMIT) / r.rate : 0);
-  let high = Math.max(...maxTPerRes, 60 * 24);
+  let high = Math.max(...maxTPerRes, 365); // max 1 year
   let low = 0;
-  const eps = 1 / 60; // precision in minutes (~1 second)
+  const eps = 1 / 86400; // precision in days (~1 second)
   while (high - low > eps) {
     const mid = (low + high) / 2;
     let neededSlots = 0;
@@ -9472,7 +9475,7 @@ function calculateToolCupboardAllocate() {
     if (neededSlots <= SLOT_LIMIT) low = mid; else high = mid;
   }
 
-  const T = low;
+  const T = low; // runtime in days
   let combinedSlots = 0;
   rates.forEach(r => {
     if (r.rate <= 0) { r.slots = 0; r.stored = 0; return; }
@@ -9494,11 +9497,15 @@ function calculateToolCupboardAllocate() {
     results.appendChild(row);
   });
 
-  const totalSeconds = Math.floor(T * 60);
-  const hours = Math.floor(totalSeconds / 3600);
+  // Convert days to days, hours, minutes, seconds
+  const totalSeconds = Math.floor(T * 86400);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
-  const runtime = `${hours}h ${minutes}m ${seconds}s`;
+  let runtime = '';
+  if (days > 0) runtime += `${days} day${days === 1 ? '' : 's'}, `;
+  runtime += `${hours} hour${hours === 1 ? '' : 's'}, ${minutes} minute${minutes === 1 ? '' : 's'}, ${seconds} second${seconds === 1 ? '' : 's'}`;
   results.appendChild(document.createElement('hr'));
   const summary = document.createElement('div'); summary.className = 'tc-summary';
   summary.innerHTML = `Total slots used: <strong>${combinedSlots}</strong> / ${SLOT_LIMIT} &nbsp; — &nbsp; Runtime: <strong>${runtime}</strong>`;
