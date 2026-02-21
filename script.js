@@ -10108,7 +10108,9 @@ function initServerVoting() {
 function fetchServerData(serverConfig, index, container) {
   const bmId = serverConfig.battlemetricsId;
   
-  const bmPromise = fetch(`${API_BASE_URL}/api/battlemetrics/${bmId}`)
+  const bmPromise = fetch(`${API_BASE_URL}/api/battlemetrics/${bmId}`, {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    })
     .then(res => {
       if (!res.ok) throw new Error(`BM API returned ${res.status}`);
       return res.json();
@@ -10120,16 +10122,22 @@ function fetchServerData(serverConfig, index, container) {
     
   const hasRustmaps = Boolean(serverConfig.rustmapsUrl);
   const rustmapsPromise = hasRustmaps
-    ? fetch(`${API_BASE_URL}/api/rustmaps-image?url=${encodeURIComponent(serverConfig.rustmapsUrl)}`)
+    ? fetch(`${API_BASE_URL}/api/rustmaps-image?url=${encodeURIComponent(serverConfig.rustmapsUrl)}`, {
+        headers: { 'ngrok-skip-browser-warning': 'true' }
+      })
         .then(res => res.ok ? res.json() : null)
         .catch(() => null)
     : Promise.resolve(null);
     
-  const avgPromise = fetch(`${API_BASE_URL}/api/battlemetrics-average/${bmId}`)
+  const avgPromise = fetch(`${API_BASE_URL}/api/battlemetrics-average/${bmId}`, {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    })
     .then(res => res.ok ? res.json() : null)
     .catch(() => null);
     
-  const initialPopPromise = fetch(`${API_BASE_URL}/api/battlemetrics-initial-pop/${bmId}`)
+  const initialPopPromise = fetch(`${API_BASE_URL}/api/battlemetrics-initial-pop/${bmId}`, {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    })
     .then(res => res.ok ? res.json() : null)
     .catch(() => null);
 
@@ -10318,12 +10326,18 @@ function saveMapNote() {
   const request = editingId
     ? fetch(`${API_BASE_URL}/api/build-locations/${editingId}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
         body: JSON.stringify({ mapKey: currentMapKey, pros, cons })
       })
     : fetch(`${API_BASE_URL}/api/build-locations`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
         body: JSON.stringify({ mapKey: currentMapKey, x, y, pros, cons })
       });
 
@@ -10341,7 +10355,9 @@ function saveMapNote() {
 function loadMapSuggestions() {
   if (!currentMapKey) return;
 
-  fetch(`${API_BASE_URL}/api/build-locations?mapKey=${encodeURIComponent(currentMapKey)}`)
+  fetch(`${API_BASE_URL}/api/build-locations?mapKey=${encodeURIComponent(currentMapKey)}`, {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    })
     .then(res => res.ok ? res.json() : null)
     .then(data => {
       const entries = Array.isArray(data?.entries) ? data.entries : [];
@@ -10401,7 +10417,9 @@ function createNoteRow(entry) {
 function editMapSuggestion(entryId) {
   if (!currentMapKey) return;
 
-  fetch(`${API_BASE_URL}/api/build-locations?mapKey=${encodeURIComponent(currentMapKey)}`)
+  fetch(`${API_BASE_URL}/api/build-locations?mapKey=${encodeURIComponent(currentMapKey)}`, {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    })
     .then(res => res.ok ? res.json() : null)
     .then(data => {
       const entries = Array.isArray(data?.entries) ? data.entries : [];
@@ -10429,7 +10447,8 @@ function deleteMapSuggestion(entryId) {
   if (!confirmDelete) return;
 
   fetch(`${API_BASE_URL}/api/build-locations/${entryId}?mapKey=${encodeURIComponent(currentMapKey)}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: { 'ngrok-skip-browser-warning': 'true' }
   })
     .then(res => res.ok ? res.json() : null)
     .then(() => loadMapSuggestions())
