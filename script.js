@@ -8695,9 +8695,12 @@ document.addEventListener('DOMContentLoaded', () => {
   addArtworkItem('https://i.ibb.co/5X52mLC7/Chat-GPT-Image-Oct-24-2025-10-23-03-PM.png', 'Rig Timers image', 'Rig Timers');
   addArtworkItem('https://i.ibb.co/1tF7DVY0/Chat-GPT-Image-Oct-23-2025-11-04-05-PM.png', 'Farm Timers image', 'Farm Timers');
   
+  // Initialize Server Voting page
+  initServerVoting();
+  
   // Initialize pages
   showSortingPage(1);
-  showPage('industrial');
+  showPage('servervoting');
 });
 
 function showDiagramAndButtons(diagram) {
@@ -8732,7 +8735,7 @@ function showDiagramAndButtons(diagram) {
 
 // ------------------ NEW: page switching ------------------
 function showPage(pageId) {
-  const pages = ['industrial', 'electrical', 'artwork', 'factory', 'toolcupboard', 'crafterbind', 'locked'];
+  const pages = ['servervoting', 'industrial', 'electrical', 'artwork', 'factory', 'toolcupboard', 'crafterbind', 'locked'];
   pages.forEach(p => {
     const el = document.getElementById(p + 'Page');
     if (!el) return;
@@ -10009,4 +10012,435 @@ function stopStatsRefresh() {
     clearInterval(statsRefreshInterval);
     statsRefreshInterval = null;
   }
+}
+
+// ------------------ Server Voting Configuration ------------------
+// Just list the BattleMetrics server IDs - data will be fetched automatically
+const serverVotingConfig = [
+  {
+    battlemetricsId: "14876729",  // Rustopia.gg - US Large
+    rustmapsUrl: "https://rustmaps.com/map/98ae0507f4884142a6d0aebde51c7f9a",
+    notes: "Monthly wipe cycle, Official Rust server"
+  },
+  {
+    battlemetricsId: "433754",  // Rustafied.com - US Long - Large
+    rustmapsUrl: "https://rustmaps.com/map/86e8ace12d544adfb4ac5e69a1f0af66",
+    notes: "Premium server, custom map voting, high quality gameplay"
+  },
+  {
+    battlemetricsId: "9611162",  // Server 3
+    rustmapsUrl: "",
+    notes: ""
+  },
+  {
+    battlemetricsId: "36933209",  // Server 4
+    rustmapsUrl: "",
+    notes: ""
+  },
+  {
+    battlemetricsId: "26375548",  // Server 5
+    rustmapsUrl: "",
+    notes: ""
+  },
+  {
+    battlemetricsId: "8113880",  // Server 6
+    rustmapsUrl: "",
+    notes: ""
+  }
+];
+
+let currentMapKey = null;
+let currentMapImageUrl = null;
+let mapInteractionsInitialized = false;
+
+function initServerVoting() {
+  const container = document.getElementById('serverVotingCards');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  serverVotingConfig.forEach((serverConfig, index) => {
+    const placeholder = document.createElement('div');
+    placeholder.id = `server-card-${index}`;
+    placeholder.className = 'server-card loading';
+    placeholder.innerHTML = '<p style="color: #888;">Loading server data...</p>';
+    container.appendChild(placeholder);
+    fetchServerData(serverConfig, index, container);
+  });
+  
+  // Create modal for enlarged maps if it doesn't exist
+  if (!document.getElementById('mapModal')) {
+    const modal = document.createElement('div');
+    modal.id = 'mapModal';
+    modal.className = 'map-modal hidden';
+    modal.innerHTML = `
+      <div class="map-modal-content">
+        <span class="map-modal-close" onclick="closeMapModal()">&times;</span>
+        <p id="mapModalTitle"></p>
+        <div class="map-modal-body">
+          <div class="map-modal-map">
+            <div id="mapOverlay" class="map-overlay"></div>
+            <img id="mapModalImage" src="" alt="Server map">
+          </div>
+          <div class="map-notes">
+            <h4>Build Location Notes</h4>
+            <div id="mapNotesList" class="map-notes-list"></div>
+          </div>
+        </div>
+        <div id="mapNoteForm" class="map-note-form hidden">
+          <h4>Add Pros / Cons</h4>
+          <label>Pros</label>
+          <textarea id="mapProsInput" placeholder="One pro per line"></textarea>
+          <label>Cons</label>
+          <textarea id="mapConsInput" placeholder="One con per line"></textarea>
+          <div class="map-note-actions">
+            <button type="button" onclick="saveMapNote()">Save</button>
+            <button type="button" onclick="closeMapNoteForm()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    initMapInteractions();
+  }
+}
+
+function fetchServerData(serverConfig, index, container) {
+  const bmId = serverConfig.battlemetricsId;
+  
+  const bmPromise = fetch(`${API_BASE_URL}/api/battlemetrics/${bmId}`)
+    .then(res => {
+      if (!res.ok) throw new Error(`BM API returned ${res.status}`);
+      return res.json();
+    })
+    .catch(err => {
+      console.error(`Failed to fetch BattleMetrics data for ${bmId}:`, err);
+      return null;
+    });
+    
+  const hasRustmaps = Boolean(serverConfig.rustmapsUrl);
+  const rustmapsPromise = hasRustmaps
+    ? fetch(`${API_BASE_URL}/api/rustmaps-image?url=${encodeURIComponent(serverConfig.rustmapsUrl)}`)
+        .then(res => res.ok ? res.json() : null)
+        .catch(() => null)
+    : Promise.resolve(null);
+    
+  const avgPromise = fetch(`${API_BASE_URL}/api/battlemetrics-average/${bmId}`)
+    .then(res => res.ok ? res.json() : null)
+    .catch(() => null);
+    
+  const initialPopPromise = fetch(`${API_BASE_URL}/api/battlemetrics-initial-pop/${bmId}`)
+    .then(res => res.ok ? res.json() : null)
+    .catch(() => null);
+
+  Promise.all([bmPromise, rustmapsPromise, avgPromise, initialPopPromise])
+    .then(([data, rustmapsData, avgData, initialPopData]) => {
+      // If BattleMetrics data failed, show error
+      if (!data || !data.data || !data.data.attributes) {
+        const existingCard = document.getElementById(`server-card-${index}`);
+        if (existingCard) {
+          existingCard.className = 'server-card error';
+          existingCard.innerHTML = `<p style="color: #ff6b6b;">Failed to load server ${bmId}</p>`;
+        }
+        return;
+      }
+      
+      const attrs = data.data.attributes;
+      const details = attrs.details;
+
+      // Extract data
+      const name = attrs.name;
+      const currentPlayers = attrs.players;
+      const maxPlayers = attrs.maxPlayers;
+      const mapSize = details.rust_world_size || 'Unknown';
+      const nextWipe = details.rust_next_wipe ? new Date(details.rust_next_wipe).toLocaleDateString() : 'N/A';
+      const lastWipe = details.rust_last_wipe ? new Date(details.rust_last_wipe).toLocaleDateString() : 'N/A';
+      const mapImageUrl = rustmapsData?.imageUrl || '/images/unknown_map.svg';
+
+      const avgPlayers = Number.isFinite(avgData?.avgPlayers) ? avgData.avgPlayers : 'N/A';
+      const initialPop = Number.isFinite(initialPopData?.initialPop) ? initialPopData.initialPop : 'N/A';
+      
+      // Extract rust_settings data
+      const settings = details.rust_settings || {};
+      const teamUILimitRaw = settings.teamUILimit;
+      const teamUILimit = (!teamUILimitRaw || teamUILimitRaw >= 999999) ? 'None' : teamUILimitRaw;
+      const upkeepPercent = settings.upkeep ? `${(settings.upkeep * 100).toFixed(0)}%` : 'N/A';
+      const rates = settings.rates || {};
+      const gatherRate = rates.gather || 1;
+      const rateDisplay = gatherRate === 1 ? '1x' : `${gatherRate}x`;
+      
+      // Render card if it's the first time or update existing
+      const existingCard = document.getElementById(`server-card-${index}`);
+      if (!existingCard) return;
+
+      existingCard.className = 'server-card';
+      existingCard.innerHTML = `
+        <div class="server-header">
+          <h3><span class="server-rate">(${rateDisplay})</span> ${name}</h3>
+          <div class="server-links">
+            <a href="https://www.battlemetrics.com/servers/rust/${bmId}" target="_blank" rel="noopener noreferrer">📊 Battlemetrics</a>
+            ${serverConfig.rustmapsUrl ? `<a href="${serverConfig.rustmapsUrl}" target="_blank" rel="noopener noreferrer">🗺️ Rustmaps</a>` : ''}
+          </div>
+        </div>
+        
+        <div class="server-stats">
+          <div class="stat-item">
+            <span class="stat-label">Current Pop:</span>
+            <span class="stat-value current">${currentPlayers}/${maxPlayers}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">AVG POP (FIRST 14D):</span>
+            <span class="stat-value">${avgPlayers}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Initial Pop (24h peak):</span>
+            <span class="stat-value">${initialPop}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Team UI Limit:</span>
+            <span class="stat-value">${teamUILimit}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Upkeep:</span>
+            <span class="stat-value">${upkeepPercent}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Rates:</span>
+            <span class="stat-value">${rateDisplay}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Map Size:</span>
+            <span class="stat-value">${mapSize}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Last Wipe:</span>
+            <span class="stat-value">${lastWipe}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Next Wipe:</span>
+            <span class="stat-value wipe-date">${nextWipe}</span>
+          </div>
+        </div>
+        
+        ${serverConfig.notes ? `<div class="server-notes">${serverConfig.notes}</div>` : ''}
+        
+        <div class="server-map">
+          ${mapImageUrl ? `<img src="${mapImageUrl}" 
+               alt="${name} map" 
+               onclick="enlargeMap('${mapImageUrl}', '${name}', '${serverConfig.rustmapsUrl}')"
+               class="map-clickable">` : '<p>Map image not available</p>'}
+        </div>
+      `;
+    })
+    .catch(err => {
+      console.error('Failed to fetch server data:', err);
+      const existingCard = document.getElementById(`server-card-${index}`);
+      if (existingCard) {
+        existingCard.className = 'server-card error';
+        existingCard.innerHTML = `<p style="color: #ff6b6b;">Failed to load server ${serverConfig.battlemetricsId}</p>`;
+      }
+    });
+}
+
+function enlargeMap(imageUrl, serverName, mapKey) {
+  const modal = document.getElementById('mapModal');
+  const img = document.getElementById('mapModalImage');
+  const title = document.getElementById('mapModalTitle');
+  
+  img.src = imageUrl;
+  title.textContent = serverName;
+  currentMapKey = mapKey || imageUrl;
+  currentMapImageUrl = imageUrl;
+  loadMapSuggestions();
+  modal.classList.remove('hidden');
+}
+
+function closeMapModal() {
+  const modal = document.getElementById('mapModal');
+  modal.classList.add('hidden');
+  closeMapNoteForm();
+}
+
+function initMapInteractions() {
+  if (mapInteractionsInitialized) return;
+  const img = document.getElementById('mapModalImage');
+  if (!img) return;
+
+  img.addEventListener('click', (event) => {
+    if (!currentMapKey || !currentMapImageUrl) return;
+    const rect = img.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    openMapNoteForm(x, y);
+  });
+
+  mapInteractionsInitialized = true;
+}
+
+function openMapNoteForm(x, y) {
+  const form = document.getElementById('mapNoteForm');
+  const prosInput = document.getElementById('mapProsInput');
+  const consInput = document.getElementById('mapConsInput');
+  if (!form || !prosInput || !consInput) return;
+
+  form.dataset.x = x.toString();
+  form.dataset.y = y.toString();
+  form.dataset.editingId = '';
+  prosInput.value = '';
+  consInput.value = '';
+  form.classList.remove('hidden');
+}
+
+function closeMapNoteForm() {
+  const form = document.getElementById('mapNoteForm');
+  if (form) {
+    form.classList.add('hidden');
+    form.dataset.editingId = '';
+  }
+}
+
+function saveMapNote() {
+  const form = document.getElementById('mapNoteForm');
+  const prosInput = document.getElementById('mapProsInput');
+  const consInput = document.getElementById('mapConsInput');
+  if (!form || !prosInput || !consInput || !currentMapKey) return;
+
+  const x = Number(form.dataset.x);
+  const y = Number(form.dataset.y);
+  const pros = prosInput.value.split('\n').map(line => line.trim()).filter(Boolean);
+  const cons = consInput.value.split('\n').map(line => line.trim()).filter(Boolean);
+  const editingId = form.dataset.editingId || '';
+
+  if (!pros.length && !cons.length) {
+    return;
+  }
+
+  const request = editingId
+    ? fetch(`${API_BASE_URL}/api/build-locations/${editingId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mapKey: currentMapKey, pros, cons })
+      })
+    : fetch(`${API_BASE_URL}/api/build-locations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mapKey: currentMapKey, x, y, pros, cons })
+      });
+
+  request
+    .then(res => res.ok ? res.json() : null)
+    .then(data => {
+      if (data?.entry) {
+        closeMapNoteForm();
+        loadMapSuggestions();
+      }
+    })
+    .catch(err => console.error('Failed to save build location:', err));
+}
+
+function loadMapSuggestions() {
+  if (!currentMapKey) return;
+
+  fetch(`${API_BASE_URL}/api/build-locations?mapKey=${encodeURIComponent(currentMapKey)}`)
+    .then(res => res.ok ? res.json() : null)
+    .then(data => {
+      const entries = Array.isArray(data?.entries) ? data.entries : [];
+      renderMapSuggestions(entries);
+    })
+    .catch(err => console.error('Failed to load build locations:', err));
+}
+
+function renderMapSuggestions(entries) {
+  const overlay = document.getElementById('mapOverlay');
+  const notesList = document.getElementById('mapNotesList');
+  if (!overlay || !notesList) return;
+
+  overlay.innerHTML = '';
+  notesList.innerHTML = '';
+
+  entries.forEach(entry => {
+    addMapMarker(overlay, entry);
+    notesList.appendChild(createNoteRow(entry));
+  });
+}
+
+function addMapSuggestion(entry) {
+  const overlay = document.getElementById('mapOverlay');
+  const notesList = document.getElementById('mapNotesList');
+  if (!overlay || !notesList) return;
+
+  addMapMarker(overlay, entry);
+  notesList.appendChild(createNoteRow(entry));
+}
+
+function createNoteRow(entry) {
+  const row = document.createElement('div');
+  row.className = 'map-note-row';
+  row.innerHTML = `
+    <div class="map-note-header">
+      <span>Location ${entry.label}</span>
+      <div class="map-note-actions">
+        <button type="button" onclick="editMapSuggestion('${entry.id}')">Edit</button>
+        <button type="button" onclick="deleteMapSuggestion('${entry.id}')">Delete</button>
+      </div>
+    </div>
+    <div class="map-note-columns">
+      <div class="map-note-col">
+        <h5>Pros</h5>
+        <ul>${(entry.pros || []).map(item => `<li>${item}</li>`).join('')}</ul>
+      </div>
+      <div class="map-note-col">
+        <h5>Cons</h5>
+        <ul>${(entry.cons || []).map(item => `<li>${item}</li>`).join('')}</ul>
+      </div>
+    </div>
+  `;
+  return row;
+}
+
+function editMapSuggestion(entryId) {
+  if (!currentMapKey) return;
+
+  fetch(`${API_BASE_URL}/api/build-locations?mapKey=${encodeURIComponent(currentMapKey)}`)
+    .then(res => res.ok ? res.json() : null)
+    .then(data => {
+      const entries = Array.isArray(data?.entries) ? data.entries : [];
+      const entry = entries.find(item => item.id === entryId);
+      if (!entry) return;
+
+      const form = document.getElementById('mapNoteForm');
+      const prosInput = document.getElementById('mapProsInput');
+      const consInput = document.getElementById('mapConsInput');
+      if (!form || !prosInput || !consInput) return;
+
+      form.dataset.x = entry.x.toString();
+      form.dataset.y = entry.y.toString();
+      form.dataset.editingId = entry.id;
+      prosInput.value = (entry.pros || []).join('\n');
+      consInput.value = (entry.cons || []).join('\n');
+      form.classList.remove('hidden');
+    })
+    .catch(err => console.error('Failed to load build location for edit:', err));
+}
+
+function deleteMapSuggestion(entryId) {
+  if (!currentMapKey) return;
+  const confirmDelete = window.confirm('Are you sure you want to delete this build location?');
+  if (!confirmDelete) return;
+
+  fetch(`${API_BASE_URL}/api/build-locations/${entryId}?mapKey=${encodeURIComponent(currentMapKey)}`, {
+    method: 'DELETE'
+  })
+    .then(res => res.ok ? res.json() : null)
+    .then(() => loadMapSuggestions())
+    .catch(err => console.error('Failed to delete build location:', err));
+}
+
+function addMapMarker(overlay, entry) {
+  const marker = document.createElement('div');
+  marker.className = 'map-marker';
+  marker.style.left = `${entry.x * 100}%`;
+  marker.style.top = `${entry.y * 100}%`;
+  marker.textContent = entry.label;
+  overlay.appendChild(marker);
 }

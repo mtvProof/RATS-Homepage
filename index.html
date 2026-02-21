@@ -6,6 +6,7 @@
   <title>RATS Homepage</title>
   <link rel="icon" type="image/png" href="images/RATSLogo.png">
   <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
 </head>
 <body>
   <header>
@@ -19,6 +20,7 @@
 
   <nav class="top-nav">
     <div class="nav-buttons">
+      <button id="navServervoting" onclick="showPage('servervoting')">Server Voting</button>
       <button id="navIndustrial" onclick="showPage('industrial')">Industrial</button>
       <button id="navElectrical" onclick="showPage('electrical')">Electrical</button>
       <button id="navArtwork" onclick="showPage('artwork')">Artwork</button>
@@ -74,6 +76,15 @@
           <!-- side panel for buttons (keeps layout consistent with diagrams) -->
           <div id="electricalSpecialButtons" class="button-grid side-panel"></div>
         </div>
+      </section>
+    </div>
+
+    <!-- SERVER VOTING page -->
+    <div id="servervotingPage" class="page hidden">
+      <section id="serverVoting">
+        <h2>Server Voting</h2>
+        <p style="color: #888; margin-bottom: 20px;">Compare servers to decide where to play and build. Click map images to enlarge. All information is accurate to the battlemetrics page only.</p>
+        <div id="serverVotingCards" class="server-voting-grid"></div>
       </section>
     </div>
 
