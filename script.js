@@ -10029,7 +10029,7 @@ const serverVotingConfig = [
   },
   {
     battlemetricsId: "9611162",  // Server 3
-    rustmapsUrl: "",
+    rustmapsUrl: "https://rustmaps.com/map/29640a2199cc4e9d868302aed0ac8867",
     notes: ""
   },
   {
@@ -10044,7 +10044,7 @@ const serverVotingConfig = [
   },
   {
     battlemetricsId: "8113880",  // Server 6
-    rustmapsUrl: "",
+    rustmapsUrl: "https://rustmaps.com/map/bcf8dc17e56744a7a65c60b90aa0a9fd?embed=img_i_l",
     notes: ""
   }
 ];
@@ -10052,6 +10052,7 @@ const serverVotingConfig = [
 let currentMapKey = null;
 let currentMapImageUrl = null;
 let mapInteractionsInitialized = false;
+let isAddingLocation = false;
 
 function initServerVoting() {
   const container = document.getElementById('serverVotingCards');
@@ -10083,7 +10084,11 @@ function initServerVoting() {
             <img id="mapModalImage" src="" alt="Server map">
           </div>
           <div class="map-notes">
+            <div id="mapRustmapsLink" class="map-rustmaps-link" style="display: none;">
+              <a id="rustmapsLinkBtn" href="#" target="_blank" rel="noopener noreferrer" class="rustmaps-btn">🗺️ View Full Map on Rustmaps</a>
+            </div>
             <h4>Build Location Notes</h4>
+            <button id="addLocationBtn" class="add-location-btn" onclick="enableAddLocation()">Add New Location</button>
             <div id="mapNotesList" class="map-notes-list"></div>
           </div>
         </div>
@@ -10183,6 +10188,7 @@ function fetchServerData(serverConfig, index, container) {
 
       existingCard.className = 'server-card';
       existingCard.innerHTML = `
+        <div class="server-number">${index + 1}</div>
         <div class="server-header">
           <h3><span class="server-rate">(${rateDisplay})</span> ${name}</h3>
           <div class="server-links">
@@ -10254,11 +10260,42 @@ function enlargeMap(imageUrl, serverName, mapKey) {
   const modal = document.getElementById('mapModal');
   const img = document.getElementById('mapModalImage');
   const title = document.getElementById('mapModalTitle');
+  const addBtn = document.getElementById('addLocationBtn');
+  const rustmapsContainer = document.getElementById('mapRustmapsLink');
+  const rustmapsBtn = document.getElementById('rustmapsLinkBtn');
   
   img.src = imageUrl;
   title.textContent = serverName;
   currentMapKey = mapKey || imageUrl;
   currentMapImageUrl = imageUrl;
+  
+  // Show/hide rustmaps link based on whether mapKey is a valid URL
+  if (rustmapsContainer && rustmapsBtn) {
+    if (mapKey && mapKey.startsWith('http')) {
+      rustmapsBtn.href = mapKey;
+      rustmapsContainer.style.display = 'block';
+    } else {
+      rustmapsContainer.style.display = 'none';
+    }
+  }
+  
+  // Check if map is valid (not unknown_map.svg or missing)
+  const isValidMap = imageUrl && !imageUrl.includes('unknown_map.svg');
+  
+  if (addBtn) {
+    if (!isValidMap) {
+      addBtn.disabled = true;
+      addBtn.textContent = 'Map Not Available - Cannot Add Locations';
+      addBtn.style.backgroundColor = '#666';
+      addBtn.style.cursor = 'not-allowed';
+    } else {
+      addBtn.disabled = false;
+      addBtn.textContent = 'Add New Location';
+      addBtn.style.backgroundColor = '';
+      addBtn.style.cursor = 'pointer';
+    }
+  }
+  
   loadMapSuggestions();
   modal.classList.remove('hidden');
 }
@@ -10276,6 +10313,7 @@ function initMapInteractions() {
 
   img.addEventListener('click', (event) => {
     if (!currentMapKey || !currentMapImageUrl) return;
+    if (!isAddingLocation) return; // Only allow clicks when Add New is clicked
     const rect = img.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width;
     const y = (event.clientY - rect.top) / rect.height;
@@ -10304,6 +10342,39 @@ function closeMapNoteForm() {
   if (form) {
     form.classList.add('hidden');
     form.dataset.editingId = '';
+  }
+  disableAddLocation();
+}
+
+function enableAddLocation() {
+  // Check if map is valid before allowing add mode
+  const isValidMap = currentMapImageUrl && !currentMapImageUrl.includes('unknown_map.svg');
+  if (!isValidMap) return;
+  
+  isAddingLocation = true;
+  const btn = document.getElementById('addLocationBtn');
+  const img = document.getElementById('mapModalImage');
+  if (btn) {
+    btn.textContent = 'Click on Map to Add Location';
+    btn.style.backgroundColor = '#4CAF50';
+    btn.disabled = true;
+  }
+  if (img) {
+    img.style.cursor = 'crosshair';
+  }
+}
+
+function disableAddLocation() {
+  isAddingLocation = false;
+  const btn = document.getElementById('addLocationBtn');
+  const img = document.getElementById('mapModalImage');
+  if (btn) {
+    btn.textContent = 'Add New Location';
+    btn.style.backgroundColor = '';
+    btn.disabled = false;
+  }
+  if (img) {
+    img.style.cursor = '';
   }
 }
 
