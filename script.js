@@ -10063,9 +10063,7 @@ function initServerVoting() {
   console.log('API_BASE_URL:', API_BASE_URL || '(Using direct BattleMetrics API)');
   console.log('Number of servers:', serverVotingConfig.length);
 
-  container.innerHTML = `<div style="background: #333; padding: 12px; margin-bottom: 15px; border-radius: 4px; font-size: 12px; color: #aaa;">
-    📡 Loading servers... API: ${API_BASE_URL ? 'Backend' : 'Direct BattleMetrics'} | Servers: ${serverVotingConfig.length}
-  </div>`;
+  container.innerHTML = '';
 
   serverVotingConfig.forEach((serverConfig, index) => {
     const placeholder = document.createElement('div');
@@ -10318,6 +10316,11 @@ function fetchServerData(serverConfig, index, container) {
               if (imgElement) {
                 imgElement.src = match[0];
                 imgElement.style.display = 'block';
+                // Hide the loading text
+                const loadingDiv = imgElement.nextElementSibling;
+                if (loadingDiv) {
+                  loadingDiv.style.display = 'none';
+                }
               }
             }
           })
