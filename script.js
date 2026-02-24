@@ -10189,8 +10189,6 @@ function fetchServerData(serverConfig, index, container) {
   
   const avgPromise = fetchAveragePopulation(bmId);
   const initialPopPromise = fetchInitialPopulation(bmId);
-    
-  const initialPopPromise = fetchInitialPopulation(bmId);
 
   Promise.all([bmPromise, rustmapsPromise, avgPromise, initialPopPromise])
     .then(([data, rustmapsData, avgData, initialPopData]) => {
