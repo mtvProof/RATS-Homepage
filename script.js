@@ -10299,15 +10299,15 @@ function fetchServerData(serverConfig, index, container) {
       const name = attrs.name;
       const currentPlayers = attrs.players;
       const maxPlayers = attrs.maxPlayers;
-      const mapSize = details.rust_world_size || 'Unknown';
+      const mapSize = String(details.rust_world_size || 'Unknown');
       const nextWipe = details.rust_next_wipe ? new Date(details.rust_next_wipe).toLocaleDateString() : 'N/A';
       const lastWipe = details.rust_last_wipe ? new Date(details.rust_last_wipe).toLocaleDateString() : 'N/A';
       
       // Generate map image URL from rustmaps seed
       let mapImageUrl = '/images/unknown_map.svg';
       if (rustmapsData && rustmapsData.seed && mapSize !== 'Unknown') {
-        // Extract numeric part of map size (e.g., "3000" from "3000 m²")
-        const sizeMatch = mapSize.match(/(\d+)/);
+        // Extract numeric part of map size (e.g., "3000" from "3000 m²" or just "3000")
+        const sizeMatch = String(mapSize).match(/(\d+)/);
         const sizeNum = sizeMatch ? sizeMatch[1] : '3000';
         mapImageUrl = `https://rustmaps.com/img/maps/${sizeNum}/${rustmapsData.seed}.jpg`;
         console.log(`Map image URL for ${name}:`, mapImageUrl);
