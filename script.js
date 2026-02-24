@@ -10265,8 +10265,16 @@ function fetchServerData(serverConfig, index, container) {
     return null;
   });
 
-  Promise.all([bmPromise, rustmapsPromise, avgPromise, initialPopPromise])
-    .then(([data, rustmapsData, avgData, initialPopData]) => {
+  Promise.allSettled([bmPromise, rustmapsPromise, avgPromise, initialPopPromise])
+    .then((results) => {
+      // Extract results from allSettled
+      const data = results[0]?.value;
+      const rustmapsData = results[1]?.value;
+      const avgData = results[2]?.value;
+      const initialPopData = results[3]?.value;
+      
+      console.log('Server voting results:', { bmId, data: !!data, rustmapsData: !!rustmapsData, avgData: !!avgData, initialPopData: !!initialPopData });
+      
       // If BattleMetrics data failed, show error
       if (!data || !data.data || !data.data.attributes) {
         const existingCard = document.getElementById(`server-card-${index}`);
