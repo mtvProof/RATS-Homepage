@@ -10303,16 +10303,25 @@ function fetchServerData(serverConfig, index, container) {
       const nextWipe = details.rust_next_wipe ? new Date(details.rust_next_wipe).toLocaleDateString() : 'N/A';
       const lastWipe = details.rust_last_wipe ? new Date(details.rust_last_wipe).toLocaleDateString() : 'N/A';
       
-      // Generate map image URL from rustmaps seed
-      let mapImageUrl = '/images/unknown_map.svg';
-      if (rustmapsData && rustmapsData.seed && mapSize !== 'Unknown') {
-        // Extract numeric part of map size (e.g., "3000" from "3000 m²" or just "3000")
-        const sizeMatch = String(mapSize).match(/(\d+)/);
-        const sizeNum = sizeMatch ? sizeMatch[1] : '3000';
-        mapImageUrl = `https://rustmaps.com/img/maps/${sizeNum}/${rustmapsData.seed}.jpg`;
-        console.log(`Map image URL for ${name}:`, mapImageUrl);
-      } else if (!rustmapsData && serverConfig.rustmapsUrl) {
-        console.warn(`Map data not extracted for ${name}:`, serverConfig.rustmapsUrl);
+      // Fetch map image from Rustmaps by scraping the page
+      let mapImageUrl = null;
+      if (serverConfig.rustmapsUrl) {
+        // Try to fetch the map image from Rustmaps using a CORS proxy
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        fetch(proxyUrl + encodeURIComponent(serverConfig.rustmapsUrl))
+          .then(res => res.text())
+          .then(html => {
+            // Extract image URL from HTML (look for content.rustmaps.com)
+            const match = html.match(/https:\/\/content\.rustmaps\.com\/maps\/\d+\/[a-f0-9]+\/[^"']+\.png/);
+            if (match) {
+              const imgElement = document.querySelector(`#server-card-${index} .server-map img`);
+              if (imgElement) {
+                imgElement.src = match[0];
+                imgElement.style.display = 'block';
+              }
+            }
+          })
+          .catch(err => console.warn('Failed to fetch map image:', err));
       }
 
       const avgPlayers = Number.isFinite(avgData?.avgPlayers) ? avgData.avgPlayers : 'N/A';
@@ -10384,10 +10393,17 @@ function fetchServerData(serverConfig, index, container) {
         ${serverConfig.notes ? `<div class="server-notes">${serverConfig.notes}</div>` : ''}
         
         <div class="server-map">
-          ${mapImageUrl && mapImageUrl !== '/images/unknown_map.svg' ? `<img src="${mapImageUrl}" 
-               alt="${name} map" 
-               onclick="enlargeMap('${mapImageUrl}', '${name}', '${serverConfig.rustmapsUrl}')"
-               class="map-clickable">` : (serverConfig.rustmapsUrl ? `<p style="color:#999;">📍 <a href="${serverConfig.rustmapsUrl}" target="_blank" rel="noopener noreferrer">View map on Rustmaps</a></p>` : '<p style="color:#999;">Map not available</p>')}
+          ${serverConfig.rustmapsUrl ? `
+            <img src="/images/loading-map.png" 
+                 alt="${name} map" 
+                 onclick="enlargeMap(this.src, '${name}', '${serverConfig.rustmapsUrl}')"
+                 style="display: none; width: 100%; cursor: pointer; border-radius: 4px;"
+                 class="map-clickable">
+            <div style="background: #444; padding: 15px; text-align: center; color: #aaa;">
+              <div style="font-size: 24px; margin-bottom: 5px;">🗺️</div>
+              <div style="font-size: 14px;">Loading map image...</div>
+            </div>
+          ` : '<p style="color:#999; text-align: center;">Map not available</p>'}
         </div>
       `;
         existingCard.innerHTML = html;
