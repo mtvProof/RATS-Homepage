@@ -10171,7 +10171,21 @@ function fetchServerData(serverConfig, index, container) {
     });
     
   const hasRustmaps = Boolean(serverConfig.rustmapsUrl);
-  const rustmapsPromise = Promise.resolve(null); // Rustmaps proxy requires backend
+  // Extract map image URL from rustmaps URL
+  // Format: https://rustmaps.com/map/{seed} -> https://rustmaps.com/img/maps/{size}/{seed}.jpg
+  function extractMapImageUrl(rustmapsUrl) {
+    if (!rustmapsUrl) return null;
+    const match = rustmapsUrl.match(/\/map\/([a-f0-9]+)/);
+    if (match) {
+      const seed = match[1];
+      // Most Rust maps are 3000 or 4500, we'll check map details for exact size
+      return { seed, rustmapsUrl };
+    }
+    return null;
+  }
+  
+  const mapData = extractMapImageUrl(serverConfig.rustmapsUrl);
+  const rustmapsPromise = Promise.resolve(mapData ? { seed: mapData.seed } : null);
     
   const avgPromise = fetchAveragePopulation(bmId);
     
@@ -10199,7 +10213,15 @@ function fetchServerData(serverConfig, index, container) {
       const mapSize = details.rust_world_size || 'Unknown';
       const nextWipe = details.rust_next_wipe ? new Date(details.rust_next_wipe).toLocaleDateString() : 'N/A';
       const lastWipe = details.rust_last_wipe ? new Date(details.rust_last_wipe).toLocaleDateString() : 'N/A';
-      const mapImageUrl = rustmapsData?.imageUrl || '/images/unknown_map.svg';
+      
+      // Generate map image URL from rustmaps seed
+      let mapImageUrl = '/images/unknown_map.svg';
+      if (rustmapsData && rustmapsData.seed && mapSize !== 'Unknown') {
+        // Extract numeric part of map size (e.g., "3000" from "3000 m²")
+        const sizeMatch = mapSize.match(/(\d+)/);
+        const sizeNum = sizeMatch ? sizeMatch[1] : '3000';
+        mapImageUrl = `https://rustmaps.com/img/maps/${sizeNum}/${rustmapsData.seed}.jpg`;
+      }
 
       const avgPlayers = Number.isFinite(avgData?.avgPlayers) ? avgData.avgPlayers : 'N/A';
       const initialPop = Number.isFinite(initialPopData?.initialPop) ? initialPopData.initialPop : 'N/A';
