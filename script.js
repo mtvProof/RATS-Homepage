@@ -10188,10 +10188,7 @@ function fetchServerData(serverConfig, index, container) {
   const rustmapsPromise = Promise.resolve(mapData ? { seed: mapData.seed } : null);
   
   const avgPromise = fetchAveragePopulation(bmId);
-    
   const initialPopPromise = fetchInitialPopulation(bmId);
-    
-  const avgPromise = fetchAveragePopulation(bmId);
     
   const initialPopPromise = fetchInitialPopulation(bmId);
 
@@ -10302,7 +10299,6 @@ function fetchServerData(serverConfig, index, container) {
           ${mapImageUrl && mapImageUrl !== '/images/unknown_map.svg' ? `<img src="${mapImageUrl}" 
                alt="${name} map" 
                onclick="enlargeMap('${mapImageUrl}', '${name}', '${serverConfig.rustmapsUrl}')"
-               onerror="this.style.display='none'; this.parentElement.innerHTML='<p style=\\'color:#999;\\'>Map image failed to load. <a href=\\'${serverConfig.rustmapsUrl}\\' target=\\'_blank\\'>View on Rustmaps</a></p>'"
                class="map-clickable">` : (serverConfig.rustmapsUrl ? `<p style="color:#999;">📍 <a href="${serverConfig.rustmapsUrl}" target="_blank" rel="noopener noreferrer">View map on Rustmaps</a></p>` : '<p style="color:#999;">Map not available</p>')}
         </div>
       `;
