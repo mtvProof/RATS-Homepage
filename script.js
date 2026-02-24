@@ -10058,6 +10058,11 @@ function initServerVoting() {
   const container = document.getElementById('serverVotingCards');
   if (!container) return;
 
+  // Log the API configuration for debugging
+  console.log('🎮 RATS Server Voting Initialized');
+  console.log('API_BASE_URL:', API_BASE_URL || '(Using direct BattleMetrics API)');
+  console.log('Number of servers:', serverVotingConfig.length);
+
   container.innerHTML = '';
 
   serverVotingConfig.forEach((serverConfig, index) => {
@@ -10113,38 +10118,64 @@ function initServerVoting() {
 function fetchServerData(serverConfig, index, container) {
   const bmId = serverConfig.battlemetricsId;
   
-  const bmPromise = fetch(`${API_BASE_URL}/api/battlemetrics/${bmId}`, {
-      headers: { 'ngrok-skip-browser-warning': 'true' }
-    })
-    .then(res => {
-      if (!res.ok) throw new Error(`BM API returned ${res.status}`);
-      return res.json();
-    })
+  // Helper function to fetch from backend with fallback to direct API
+  function fetchBattleMetricsData(serverId) {
+    // Try backend API first if configured
+    if (API_BASE_URL) {
+      return fetch(`${API_BASE_URL}/api/battlemetrics/${serverId}`, {
+          headers: { 'ngrok-skip-browser-warning': 'true' }
+        })
+        .then(res => {
+          if (!res.ok) throw new Error(`BM API returned ${res.status}`);
+          return res.json();
+        })
+        .catch(err => {
+          console.warn(`Backend API failed for ${serverId}, falling back to direct API:`, err.message);
+          // Fall back to direct BattleMetrics API
+          return fetch(`https://api.battlemetrics.com/servers/${serverId}`)
+            .then(res => res.json());
+        });
+    } else {
+      // No backend configured, use direct API
+      return fetch(`https://api.battlemetrics.com/servers/${serverId}`)
+        .then(res => res.json());
+    }
+  }
+  
+  function fetchAveragePopulation(serverId) {
+    if (API_BASE_URL) {
+      return fetch(`${API_BASE_URL}/api/battlemetrics-average/${serverId}`, {
+          headers: { 'ngrok-skip-browser-warning': 'true' }
+        })
+        .then(res => res.ok ? res.json() : null)
+        .catch(() => null);
+    }
+    return Promise.resolve(null);
+  }
+  
+  function fetchInitialPopulation(serverId) {
+    if (API_BASE_URL) {
+      return fetch(`${API_BASE_URL}/api/battlemetrics-initial-pop/${serverId}`, {
+          headers: { 'ngrok-skip-browser-warning': 'true' }
+        })
+        .then(res => res.ok ? res.json() : null)
+        .catch(() => null);
+    }
+    return Promise.resolve(null);
+  }
+  
+  const bmPromise = fetchBattleMetricsData(bmId)
     .catch(err => {
       console.error(`Failed to fetch BattleMetrics data for ${bmId}:`, err);
       return null;
     });
     
   const hasRustmaps = Boolean(serverConfig.rustmapsUrl);
-  const rustmapsPromise = hasRustmaps
-    ? fetch(`${API_BASE_URL}/api/rustmaps-image?url=${encodeURIComponent(serverConfig.rustmapsUrl)}`, {
-        headers: { 'ngrok-skip-browser-warning': 'true' }
-      })
-        .then(res => res.ok ? res.json() : null)
-        .catch(() => null)
-    : Promise.resolve(null);
+  const rustmapsPromise = Promise.resolve(null); // Rustmaps proxy requires backend
     
-  const avgPromise = fetch(`${API_BASE_URL}/api/battlemetrics-average/${bmId}`, {
-      headers: { 'ngrok-skip-browser-warning': 'true' }
-    })
-    .then(res => res.ok ? res.json() : null)
-    .catch(() => null);
+  const avgPromise = fetchAveragePopulation(bmId);
     
-  const initialPopPromise = fetch(`${API_BASE_URL}/api/battlemetrics-initial-pop/${bmId}`, {
-      headers: { 'ngrok-skip-browser-warning': 'true' }
-    })
-    .then(res => res.ok ? res.json() : null)
-    .catch(() => null);
+  const initialPopPromise = fetchInitialPopulation(bmId);
 
   Promise.all([bmPromise, rustmapsPromise, avgPromise, initialPopPromise])
     .then(([data, rustmapsData, avgData, initialPopData]) => {
@@ -10251,7 +10282,15 @@ function fetchServerData(serverConfig, index, container) {
       const existingCard = document.getElementById(`server-card-${index}`);
       if (existingCard) {
         existingCard.className = 'server-card error';
-        existingCard.innerHTML = `<p style="color: #ff6b6b;">Failed to load server ${serverConfig.battlemetricsId}</p>`;
+        let errorMsg = `Failed to load server data`;
+        if (err.message && err.message.includes('CORS')) {
+          errorMsg = `CORS Error: Cannot access server data. Try refreshing the page.`;
+        } else if (err.message && err.message.includes('timeout')) {
+          errorMsg = `Connection timeout. Check your internet connection.`;
+        } else if (err.message && err.message.includes('Failed to fetch')) {
+          errorMsg = `Network error. Check your connection and try again.`;
+        }
+        existingCard.innerHTML = `<p style="color: #ff6b6b;">${errorMsg}</p>`;
       }
     });
 }
