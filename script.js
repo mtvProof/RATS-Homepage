@@ -10186,6 +10186,10 @@ function fetchServerData(serverConfig, index, container) {
   
   const mapData = extractMapImageUrl(serverConfig.rustmapsUrl);
   const rustmapsPromise = Promise.resolve(mapData ? { seed: mapData.seed } : null);
+  
+  const avgPromise = fetchAveragePopulation(bmId);
+    
+  const initialPopPromise = fetchInitialPopulation(bmId);
     
   const avgPromise = fetchAveragePopulation(bmId);
     
@@ -10221,6 +10225,9 @@ function fetchServerData(serverConfig, index, container) {
         const sizeMatch = mapSize.match(/(\d+)/);
         const sizeNum = sizeMatch ? sizeMatch[1] : '3000';
         mapImageUrl = `https://rustmaps.com/img/maps/${sizeNum}/${rustmapsData.seed}.jpg`;
+        console.log(`Map image URL for ${name}:`, mapImageUrl);
+      } else if (!rustmapsData && serverConfig.rustmapsUrl) {
+        console.warn(`Map data not extracted for ${name}:`, serverConfig.rustmapsUrl);
       }
 
       const avgPlayers = Number.isFinite(avgData?.avgPlayers) ? avgData.avgPlayers : 'N/A';
@@ -10292,10 +10299,11 @@ function fetchServerData(serverConfig, index, container) {
         ${serverConfig.notes ? `<div class="server-notes">${serverConfig.notes}</div>` : ''}
         
         <div class="server-map">
-          ${mapImageUrl ? `<img src="${mapImageUrl}" 
+          ${mapImageUrl && mapImageUrl !== '/images/unknown_map.svg' ? `<img src="${mapImageUrl}" 
                alt="${name} map" 
                onclick="enlargeMap('${mapImageUrl}', '${name}', '${serverConfig.rustmapsUrl}')"
-               class="map-clickable">` : '<p>Map image not available</p>'}
+               onerror="this.style.display='none'; this.parentElement.innerHTML='<p style=\\'color:#999;\\'>Map image failed to load. <a href=\\'${serverConfig.rustmapsUrl}\\' target=\\'_blank\\'>View on Rustmaps</a></p>'"
+               class="map-clickable">` : (serverConfig.rustmapsUrl ? `<p style="color:#999;">📍 <a href="${serverConfig.rustmapsUrl}" target="_blank" rel="noopener noreferrer">View map on Rustmaps</a></p>` : '<p style="color:#999;">Map not available</p>')}
         </div>
       `;
     })
