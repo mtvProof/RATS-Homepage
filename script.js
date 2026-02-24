@@ -10267,23 +10267,24 @@ function fetchServerData(serverConfig, index, container) {
 
   Promise.allSettled([bmPromise, rustmapsPromise, avgPromise, initialPopPromise])
     .then((results) => {
-      // Extract results from allSettled
-      const data = results[0]?.value;
-      const rustmapsData = results[1]?.value;
-      const avgData = results[2]?.value;
-      const initialPopData = results[3]?.value;
-      
-      console.log('Server voting results:', { bmId, data: !!data, rustmapsData: !!rustmapsData, avgData: !!avgData, initialPopData: !!initialPopData });
-      
-      // If BattleMetrics data failed, show error
-      if (!data || !data.data || !data.data.attributes) {
-        const existingCard = document.getElementById(`server-card-${index}`);
-        if (existingCard) {
-          existingCard.className = 'server-card error';
-          existingCard.innerHTML = `<p style="color: #ff6b6b;">Failed to load server ${bmId}</p>`;
+      try {
+        // Extract results from allSettled
+        const data = results[0]?.value;
+        const rustmapsData = results[1]?.value;
+        const avgData = results[2]?.value;
+        const initialPopData = results[3]?.value;
+        
+        console.log('Server voting results:', { bmId, data: !!data, rustmapsData: !!rustmapsData, avgData: !!avgData, initialPopData: !!initialPopData });
+        
+        // If BattleMetrics data failed, show error
+        if (!data || !data.data || !data.data.attributes) {
+          const existingCard = document.getElementById(`server-card-${index}`);
+          if (existingCard) {
+            existingCard.className = 'server-card error';
+            existingCard.innerHTML = `<p style="color: #ff6b6b;">Failed to load server ${bmId}</p>`;
+          }
+          return;
         }
-        return;
-      }
       
       const attrs = data.data.attributes;
       const details = attrs.details;
@@ -10325,7 +10326,7 @@ function fetchServerData(serverConfig, index, container) {
       if (!existingCard) return;
 
       existingCard.className = 'server-card';
-      existingCard.innerHTML = `
+      const html = `
         <div class="server-number">${index + 1}</div>
         <div class="server-header">
           <h3><span class="server-rate">(${rateDisplay})</span> ${name}</h3>
@@ -10383,21 +10384,22 @@ function fetchServerData(serverConfig, index, container) {
                class="map-clickable">` : (serverConfig.rustmapsUrl ? `<p style="color:#999;">📍 <a href="${serverConfig.rustmapsUrl}" target="_blank" rel="noopener noreferrer">View map on Rustmaps</a></p>` : '<p style="color:#999;">Map not available</p>')}
         </div>
       `;
+        existingCard.innerHTML = html;
+      } catch (err) {
+        console.error('Error building card:', err);
+        const existingCard = document.getElementById(`server-card-${index}`);
+        if (existingCard) {
+          existingCard.className = 'server-card error';
+          existingCard.innerHTML = `<p style="color: #ff6b6b;">Error: ${err.message}</p>`;
+        }
+      }
     })
     .catch(err => {
-      console.error('Failed to fetch server data:', err);
+      console.error('Error in Promise.allSettled:', err);
       const existingCard = document.getElementById(`server-card-${index}`);
       if (existingCard) {
         existingCard.className = 'server-card error';
-        let errorMsg = `Failed to load server data`;
-        if (err.message && err.message.includes('CORS')) {
-          errorMsg = `CORS Error: Cannot access server data. Try refreshing the page.`;
-        } else if (err.message && err.message.includes('timeout')) {
-          errorMsg = `Connection timeout. Check your internet connection.`;
-        } else if (err.message && err.message.includes('Failed to fetch')) {
-          errorMsg = `Network error. Check your connection and try again.`;
-        }
-        existingCard.innerHTML = `<p style="color: #ff6b6b;">${errorMsg}</p>`;
+        existingCard.innerHTML = `<p style="color: #ff6b6b;">Failed to load server</p>`;
       }
     });
 }
