@@ -10063,7 +10063,9 @@ function initServerVoting() {
   console.log('API_BASE_URL:', API_BASE_URL || '(Using direct BattleMetrics API)');
   console.log('Number of servers:', serverVotingConfig.length);
 
-  container.innerHTML = '';
+  container.innerHTML = `<div style="background: #333; padding: 12px; margin-bottom: 15px; border-radius: 4px; font-size: 12px; color: #aaa;">
+    📡 Loading servers... API: ${API_BASE_URL ? 'Backend' : 'Direct BattleMetrics'} | Servers: ${serverVotingConfig.length}
+  </div>`;
 
   serverVotingConfig.forEach((serverConfig, index) => {
     const placeholder = document.createElement('div');
@@ -10274,14 +10276,18 @@ function fetchServerData(serverConfig, index, container) {
         const avgData = results[2]?.value;
         const initialPopData = results[3]?.value;
         
+        // Debug info
+        const debugInfo = `BM:${results[0].status} Maps:${results[1].status} Avg:${results[2].status} Init:${results[3].status}`;
         console.log('Server voting results:', { bmId, data: !!data, rustmapsData: !!rustmapsData, avgData: !!avgData, initialPopData: !!initialPopData });
+        console.log('Status:', debugInfo);
         
-        // If BattleMetrics data failed, show error
+        // If BattleMetrics data failed, show error with status
         if (!data || !data.data || !data.data.attributes) {
           const existingCard = document.getElementById(`server-card-${index}`);
           if (existingCard) {
             existingCard.className = 'server-card error';
-            existingCard.innerHTML = `<p style="color: #ff6b6b;">Failed to load server ${bmId}</p>`;
+            const statusStr = results[0].status === 'fulfilled' ? 'API returned no data' : 'API request failed';
+            existingCard.innerHTML = `<p style="color: #ff6b6b;">⚠️ Server ${bmId}<br><small>${statusStr}</small></p>`;
           }
           return;
         }
@@ -10390,7 +10396,8 @@ function fetchServerData(serverConfig, index, container) {
         const existingCard = document.getElementById(`server-card-${index}`);
         if (existingCard) {
           existingCard.className = 'server-card error';
-          existingCard.innerHTML = `<p style="color: #ff6b6b;">Error: ${err.message}</p>`;
+          const errorMsg = err.message.substring(0, 50);
+          existingCard.innerHTML = `<p style="color: #ff6b6b;">❌ Error<br><small>${errorMsg}...</small></p>`;
         }
       }
     })
