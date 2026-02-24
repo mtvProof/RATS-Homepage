@@ -10133,12 +10133,18 @@ function fetchServerData(serverConfig, index, container) {
           console.warn(`Backend API failed for ${serverId}, falling back to direct API:`, err.message);
           // Fall back to direct BattleMetrics API
           return fetch(`https://api.battlemetrics.com/servers/${serverId}`)
-            .then(res => res.json());
+            .then(res => {
+              if (!res.ok) throw new Error(`BattleMetrics returned ${res.status}`);
+              return res.json();
+            });
         });
     } else {
       // No backend configured, use direct API
       return fetch(`https://api.battlemetrics.com/servers/${serverId}`)
-        .then(res => res.json());
+        .then(res => {
+          if (!res.ok) throw new Error(`BattleMetrics returned ${res.status}`);
+          return res.json();
+        });
     }
   }
   
@@ -10150,7 +10156,38 @@ function fetchServerData(serverConfig, index, container) {
         .then(res => res.ok ? res.json() : null)
         .catch(() => null);
     }
-    return Promise.resolve(null);
+    // Fallback: fetch population history directly from BattleMetrics
+    return fetch(`https://api.battlemetrics.com/servers/${serverId}`)
+      .then(res => res.json())
+      .then(data => {
+        const details = data?.data?.attributes?.details || {};
+        const lastWipe = details.rust_last_wipe || details.rust_last_seed_change || details.rust_born;
+        if (!lastWipe) return null;
+        
+        const startDate = new Date(lastWipe);
+        const stopDate = new Date(startDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+        const startIso = startDate.toISOString();
+        const stopIso = stopDate.toISOString();
+        
+        // Fetch history data
+        return fetch(`https://api.battlemetrics.com/servers/${serverId}/player-count-history?start=${encodeURIComponent(startIso)}&stop=${encodeURIComponent(stopIso)}&resolution=1440`)
+          .then(res => res.json())
+          .then(historyData => {
+            const points = Array.isArray(historyData?.data) ? historyData.data : [];
+            const values = points
+              .map(point => {
+                const value = point?.attributes?.value;
+                const max = point?.attributes?.max;
+                return Number.isFinite(value) ? value : (Number.isFinite(max) ? max : null);
+              })
+              .filter(value => value !== null);
+            
+            if (!values.length) return null;
+            const sum = values.reduce((acc, value) => acc + value, 0);
+            return { avgPlayers: Math.round(sum / values.length) };
+          });
+      })
+      .catch(() => null);
   }
   
   function fetchInitialPopulation(serverId) {
@@ -10161,7 +10198,38 @@ function fetchServerData(serverConfig, index, container) {
         .then(res => res.ok ? res.json() : null)
         .catch(() => null);
     }
-    return Promise.resolve(null);
+    // Fallback: fetch peak population for first 24h after wipe
+    return fetch(`https://api.battlemetrics.com/servers/${serverId}`)
+      .then(res => res.json())
+      .then(data => {
+        const details = data?.data?.attributes?.details || {};
+        const lastWipe = details.rust_last_wipe || details.rust_last_seed_change || details.rust_born;
+        if (!lastWipe) return null;
+        
+        const startDate = new Date(lastWipe);
+        const stopDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
+        const startIso = startDate.toISOString();
+        const stopIso = stopDate.toISOString();
+        
+        // Fetch history data
+        return fetch(`https://api.battlemetrics.com/servers/${serverId}/player-count-history?start=${encodeURIComponent(startIso)}&stop=${encodeURIComponent(stopIso)}&resolution=60`)
+          .then(res => res.json())
+          .then(historyData => {
+            const points = Array.isArray(historyData?.data) ? historyData.data : [];
+            const values = points
+              .map(point => {
+                const value = point?.attributes?.value;
+                const max = point?.attributes?.max;
+                return Number.isFinite(value) ? value : (Number.isFinite(max) ? max : null);
+              })
+              .filter(value => value !== null);
+            
+            if (!values.length) return null;
+            const maxPop = Math.max(...values);
+            return { initialPop: maxPop };
+          });
+      })
+      .catch(() => null);
   }
   
   const bmPromise = fetchBattleMetricsData(bmId)

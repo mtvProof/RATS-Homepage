@@ -85,8 +85,7 @@
         <h2>Server Voting</h2>
         <p style="color: #888; margin-bottom: 20px;">Compare servers to decide where to play and build. Click map images to view and add build locations. All population data is from BattleMetrics.</p>
         <div style="background: #222; border-left: 3px solid #ff4c4c; padding: 12px; margin-bottom: 20px; border-radius: 4px; font-size: 13px; color: #aaa;">
-          <strong style="color: #ff4c4c;">📡 How it works:</strong> Server data loads from BattleMetrics. This page works on any network (wifi, mobile, local network). 
-          <br><strong style="color: #ff9999;">⚠️ Note:</strong> Average & initial population (14D avg, 24h peak) require the backend server. Run <code style="background: #111; padding: 2px 4px;">node scripts/server.js</code> locally to enable these stats.
+          <strong style="color: #ff4c4c;">📡 How it works:</strong> Works on any network (GitHub Pages, local, mobile) with automatic BattleMetrics API fallback. If you see "N/A" for stats, the page is still loading or BattleMetrics is temporarily unavailable. Try refreshing.
         </div>
         <div id="serverVotingCards" class="server-voting-grid"></div>
       </section>
