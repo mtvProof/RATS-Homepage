@@ -10255,8 +10255,15 @@ function fetchServerData(serverConfig, index, container) {
   const mapData = extractMapImageUrl(serverConfig.rustmapsUrl);
   const rustmapsPromise = Promise.resolve(mapData ? { seed: mapData.seed } : null);
   
-  const avgPromise = fetchAveragePopulation(bmId);
-  const initialPopPromise = fetchInitialPopulation(bmId);
+  // Wrap promises to always resolve, never reject
+  const avgPromise = fetchAveragePopulation(bmId).catch(err => {
+    console.warn(`Failed to fetch average population:`, err);
+    return null;
+  });
+  const initialPopPromise = fetchInitialPopulation(bmId).catch(err => {
+    console.warn(`Failed to fetch initial population:`, err);
+    return null;
+  });
 
   Promise.all([bmPromise, rustmapsPromise, avgPromise, initialPopPromise])
     .then(([data, rustmapsData, avgData, initialPopData]) => {
