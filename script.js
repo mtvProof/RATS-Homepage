@@ -8148,47 +8148,42 @@ const crafterButtons = [
     message: `[
   {
     "TargetCategory": null,
-    "MaxAmountInOutput": 20,
+    "MaxAmountInOutput": 36,
     "BufferAmount": 0,
     "MinAmountInInput": 1,
     "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
     "TargetItemName": "syringe.medical"
   },
   {
     "TargetCategory": null,
-    "MaxAmountInOutput": 512,
+    "MaxAmountInOutput": 768,
     "BufferAmount": 0,
     "MinAmountInInput": 1,
     "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
     "TargetItemName": "ammo.rifle"
   },
   {
     "TargetCategory": null,
-    "MaxAmountInOutput": 512,
+    "MaxAmountInOutput": 768,
     "BufferAmount": 0,
     "MinAmountInInput": 1,
     "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
     "TargetItemName": "ammo.pistol"
   },
   {
     "TargetCategory": null,
-    "MaxAmountInOutput": 30,
+    "MaxAmountInOutput": 12,
     "BufferAmount": 0,
     "MinAmountInInput": 1,
     "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
     "TargetItemName": "barricade.wood.cover"
   },
   {
     "TargetCategory": null,
-    "MaxAmountInOutput": 6,
+    "MaxAmountInOutput": 4,
     "BufferAmount": 0,
     "MinAmountInInput": 0,
     "IsBlueprint": false,
-    "BufferTransferRemaining": 0,
     "TargetItemName": "clothing.mod.armorinsert_wood"
   }
 ]`
@@ -10304,27 +10299,38 @@ function fetchServerData(serverConfig, index, container) {
       // Fetch map image from Rustmaps by scraping the page
       let mapImageUrl = null;
       if (serverConfig.rustmapsUrl) {
-        // Try to fetch the map image from Rustmaps using a CORS proxy
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
-        fetch(proxyUrl + encodeURIComponent(serverConfig.rustmapsUrl))
-          .then(res => res.text())
-          .then(html => {
-            // Extract image URL from HTML (look for content.rustmaps.com)
-            const match = html.match(/https:\/\/content\.rustmaps\.com\/maps\/\d+\/[a-f0-9]+\/[^"']+\.png/);
-            if (match) {
-              const imgElement = document.querySelector(`#server-card-${index} .server-map img`);
-              if (imgElement) {
-                imgElement.src = match[0];
-                imgElement.style.display = 'block';
-                // Hide the loading text
-                const loadingDiv = imgElement.nextElementSibling;
-                if (loadingDiv) {
-                  loadingDiv.style.display = 'none';
-                }
-              }
-            }
-          })
-          .catch(err => console.warn('Failed to fetch map image:', err));
+        // Try to fetch map image directly first, then fall back to CORS proxy for faster loading
+        const imgElement = document.querySelector(`#server-card-${index} .server-map img`);
+        if (imgElement) {
+          // Construct direct content.rustmaps.com URL
+          const seed = serverConfig.rustmapsUrl.split('/').pop();
+          const directImageUrl = `https://content.rustmaps.com/maps/${seed}/map_icons.png`;
+          
+          // Try direct fetch first (faster, no proxy overhead)
+          fetch(directImageUrl, { mode: 'no-cors' })
+            .then(() => {
+              imgElement.src = directImageUrl;
+              imgElement.style.display = 'block';
+              const loadingDiv = imgElement.nextElementSibling;
+              if (loadingDiv) loadingDiv.style.display = 'none';
+            })
+            .catch(() => {
+              // Fall back to proxy if direct fetch fails
+              const proxyUrl = 'https://api.allorigins.win/raw?url=';
+              fetch(proxyUrl + encodeURIComponent(serverConfig.rustmapsUrl), { signal: AbortSignal.timeout(8000) })
+                .then(res => res.text())
+                .then(html => {
+                  const match = html.match(/https:\/\/content\.rustmaps\.com\/maps\/\d+\/[a-f0-9]+\/[^"']+\.png/);
+                  if (match) {
+                    imgElement.src = match[0];
+                    imgElement.style.display = 'block';
+                    const loadingDiv = imgElement.nextElementSibling;
+                    if (loadingDiv) loadingDiv.style.display = 'none';
+                  }
+                })
+                .catch(err => console.warn('Failed to fetch map image:', err));
+            });
+        }
       }
 
       const avgPlayers = Number.isFinite(avgData?.avgPlayers) ? avgData.avgPlayers : 'N/A';
@@ -10565,6 +10571,13 @@ function saveMapNote() {
   const editingId = form.dataset.editingId || '';
 
   if (!pros.length && !cons.length) {
+    alert('Please enter at least one pro or con.');
+    return;
+  }
+
+  // Check if backend API is available
+  if (!API_BASE_URL) {
+    alert('Build location markers require a backend server. This feature is not available on GitHub Pages.');
     return;
   }
 
@@ -10592,9 +10605,14 @@ function saveMapNote() {
       if (data?.entry) {
         closeMapNoteForm();
         loadMapSuggestions();
+      } else {
+        alert('Failed to save build location. Please try again.');
       }
     })
-    .catch(err => console.error('Failed to save build location:', err));
+    .catch(err => {
+      console.error('Failed to save build location:', err);
+      alert('Error saving build location: ' + err.message);
+    });
 }
 
 function loadMapSuggestions() {
