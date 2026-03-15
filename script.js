@@ -8845,7 +8845,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize pages
   showSortingPage(1);
-  showPage('servervoting');
+  showPage('industrial');
 });
 
 function showDiagramAndButtons(diagram) {
