@@ -20,7 +20,6 @@
 
   <nav class="top-nav">
     <div class="nav-buttons">
-      <button id="navServervoting" onclick="showPage('servervoting')">Server Voting</button>
       <button id="navIndustrial" onclick="showPage('industrial')">Industrial</button>
       <button id="navElectrical" onclick="showPage('electrical')">Electrical</button>
       <button id="navArtwork" onclick="showPage('artwork')">Artwork</button>
@@ -28,6 +27,7 @@
       <button id="navToolcupboard" onclick="showPage('toolcupboard')">Tool Cupboard</button>
       <button id="navCrafterbind" onclick="showPage('crafterbind')">Crafter Bind</button>
       <button id="navLocked" onclick="showLockedPage()">Locked</button>
+      <button id="navServervoting" onclick="showPage('servervoting')">WIP Server Voting</button>
     </div>
   </nav>
 
@@ -76,18 +76,6 @@
           <!-- side panel for buttons (keeps layout consistent with diagrams) -->
           <div id="electricalSpecialButtons" class="button-grid side-panel"></div>
         </div>
-      </section>
-    </div>
-
-    <!-- SERVER VOTING page -->
-    <div id="servervotingPage" class="page hidden">
-      <section id="serverVoting">
-        <h2>Server Voting</h2>
-        <p style="color: #888; margin-bottom: 20px;">Compare servers to decide where to play and build. Click map images to view and add build locations. All population data is from BattleMetrics.</p>
-        <div style="background: #222; border-left: 3px solid #ff4c4c; padding: 12px; margin-bottom: 20px; border-radius: 4px; font-size: 13px; color: #aaa;">
-          <strong style="color: #ff4c4c;">📡 How it works:</strong> Works on any network (GitHub Pages, local, mobile) with automatic BattleMetrics API fallback. If you see "N/A" for stats, the page is still loading or BattleMetrics is temporarily unavailable. Try refreshing.
-        </div>
-        <div id="serverVotingCards" class="server-voting-grid"></div>
       </section>
     </div>
 
@@ -380,6 +368,18 @@
           </div>
         </div>
         </div>
+      </section>
+    </div>
+
+    <!-- SERVER VOTING page -->
+    <div id="servervotingPage" class="page hidden">
+      <section id="serverVoting">
+        <h2>WIP Server Voting</h2>
+        <p style="color: #888; margin-bottom: 20px;">Compare servers to decide where to play and build. Click map images to view and add build locations. All population data is from BattleMetrics.</p>
+        <div style="background: #222; border-left: 3px solid #ff4c4c; padding: 12px; margin-bottom: 20px; border-radius: 4px; font-size: 13px; color: #aaa;">
+          <strong style="color: #ff4c4c;">📡 How it works:</strong> Works on any network (GitHub Pages, local, mobile) with automatic BattleMetrics API fallback. If you see "N/A" for stats, the page is still loading or BattleMetrics is temporarily unavailable. Try refreshing.
+        </div>
+        <div id="serverVotingCards" class="server-voting-grid"></div>
       </section>
     </div>
   </main>

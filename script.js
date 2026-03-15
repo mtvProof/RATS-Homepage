@@ -3857,6 +3857,156 @@ const sortingButtonsPage2 = [
     "TargetItemName": "keycard_green"
   }
 ]`
+  },
+  {
+    label: "Heli Garage",
+    image: "ammo.rocket.hv.png",
+    message: `[
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "metal.fragments"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 500,
+    "IsBlueprint": false,
+    "TargetItemName": "lowgradefuel"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 500,
+    "IsBlueprint": false,
+    "TargetItemName": "cloth"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 6000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "gunpowder"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 750,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "scrap"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 100,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "metal.refined"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "stones"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1000,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "wood"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 200,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "leather"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "techparts"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 120,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "metalpipe"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 10,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "sheetmetal"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "purewarmingtea"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 20,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "maxhealthtea.pure"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "largebackpack"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "cctv.camera"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 1,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "targeting.computer"
+  },
+  {
+    "TargetCategory": null,
+    "MaxAmountInOutput": 5,
+    "BufferAmount": 0,
+    "MinAmountInInput": 0,
+    "IsBlueprint": false,
+    "TargetItemName": "metalspring"
+  }
+]`
   }
 ];
 
@@ -8730,7 +8880,7 @@ function showDiagramAndButtons(diagram) {
 
 // ------------------ NEW: page switching ------------------
 function showPage(pageId) {
-  const pages = ['servervoting', 'industrial', 'electrical', 'artwork', 'factory', 'toolcupboard', 'crafterbind', 'locked'];
+  const pages = ['industrial', 'electrical', 'artwork', 'factory', 'toolcupboard', 'crafterbind', 'locked', 'servervoting'];
   pages.forEach(p => {
     const el = document.getElementById(p + 'Page');
     if (!el) return;
